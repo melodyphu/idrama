@@ -1,0 +1,27 @@
+{
+  "name": "idrama",
+  "version": "1.0.0",
+  "description": "Be dramatic without the drama.",
+  "main": "index.js",
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^4.0.3",
+    "web-vitals": "^1.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melodyphu/idrama.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/melodyphu/idrama/issues"
+  },
+  "homepage": "https://github.com/melodyphu/idrama#readme"
+}
