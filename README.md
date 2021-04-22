@@ -7,4 +7,5 @@ Run `npm install` to update your local node modules folder to keep up with the l
 Run `npm start` to test the app locally at [localhost:3000](http://localhost:3000).
 
 # Deployment Tips
-Run `npm run deploy` to deploy the app to github pages.
+Make an account at [Heroku](https://www.heroku.com/).
+
