@@ -4,6 +4,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
+import {COLORS} from "../styles/Colors";
+
+
 const styles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -34,7 +37,7 @@ class AppToolbar extends React.Component {
     render() {
         return (
             <div className={styles.root}>
-              <AppBar position="static">
+              <AppBar color={COLORS['black']} position="static">
                 <Toolbar>
                   <Typography variant="h6" className={styles.title}>
                     iDrama
