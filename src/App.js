@@ -12,7 +12,6 @@ import UploadArena from './upload/UploadArena';
 import PracticeArena from './practice/PracticeArena';
 import Summary from './summary/Summary';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +20,10 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
+  handleSwitchScreen(value) {
+    this.setState({
+      screen: SCREENS[value]
+    })
   }
 
   getScreen(screen) {
