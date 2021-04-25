@@ -20,31 +20,32 @@ class App extends React.Component {
     }
   }
 
-  handleSwitchScreen(value) {
+  handleSwitchScreen = (value) => {
     this.setState({
-      screen: SCREENS[value]
-    })
+      screen: value
+    });
   }
 
-  getScreen(screen) {
-    switch (screen) {
-      case SCREENS.tutorial: return (<Tutorial />);
-      case SCREENS.home: return (<HomePage/>);
-      case SCREENS.upload: return (<UploadArena/>);
-      case SCREENS.practice: return (<PracticeArena/>);
-      case SCREENS.summary: return (<Summary/>);
+  getScreen = () => {
+    switch (this.state.screen) {
+      case SCREENS.tutorial: 
+        return (<Tutorial switchScreen={this.handleSwitchScreen}/>);
+      case SCREENS.home: 
+        return (<HomePage switchScreen={this.handleSwitchScreen}/>);
+      case SCREENS.upload: 
+        return (<UploadArena switchScreen={this.handleSwitchScreen}/>);
+      case SCREENS.practice: 
+        return (<PracticeArena switchScreen={this.handleSwitchScreen}/>);
+      case SCREENS.summary: 
+        return (<Summary switchScreen={this.handleSwitchScreen}/>);
     }
   }
 
   render() {
     return (
       <div>
-        <div className="App">
-          <AppToolbar/>
-        </div>
-        <div className="Screen">
-          {this.getScreen(this.state.screen)}
-        </div>
+        <AppToolbar/>
+        {this.getScreen()}
       </div>
 
     );

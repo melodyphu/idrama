@@ -1,5 +1,11 @@
 import React from 'react';
 
+import {SCREENS} from './../constants/Navigation';
+
+import Button from '@material-ui/core/Button';
+import StartIcon from "@material-ui/icons/PlayArrow";
+import HelpIcon from "@material-ui/icons/Help";
+
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -8,17 +14,30 @@ class HomePage extends React.Component {
     }
   }
 
-  // called the first time the component is rendered by App.js
-  componentDidMount() {
-    this.setState({
-
-    })
-  }
-
   render() {
     return (
       <div> 
-        This is the Home Page.
+        <div> 
+          This is the Home Page
+        </div>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          endIcon={<StartIcon />}
+          onClick={() => this.props.switchScreen(SCREENS.upload)}
+        >
+          Start
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          endIcon={<HelpIcon />}
+          onClick={() => this.props.switchScreen(SCREENS.tutorial)}
+        >
+          Help
+        </Button>
       </div>
     );
   }
