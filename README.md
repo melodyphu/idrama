@@ -1,4 +1,10 @@
-<<<<<<< HEAD
+# iDrama
+Be dramatic without the drama.
+
+# Development Tips
+Run `git pull` to get the latest changes to the remote repository.
+Run `npm install` to update your local node modules folder to keep up with the latest package management.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -69,13 +75,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
-# iDrama
-Be dramatic without the drama.
-
-# Development Tips
-Run `git pull` to get the latest changes to the remote repository.
-Run `npm install` to update your local node modules folder to keep up with the latest package management.
 Run `npm start` to test the app locally at [localhost:3000](http://localhost:3000).
 
 # Deployment Tips
