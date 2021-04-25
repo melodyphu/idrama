@@ -5,6 +5,11 @@ Be dramatic without the drama.
 Run `git pull` to get the latest changes to the remote repository.
 Run `npm install` to update your local node modules folder to keep up with the latest package management.
 
+# Deployment Tips
+Make an account at [Heroku](https://www.heroku.com/).
+Under the iDrama account, deploy from the main branch.
+View iDrama [here](https://idrama.herokuapp.com/).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -76,8 +81,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 Run `npm start` to test the app locally at [localhost:3000](http://localhost:3000).
-
-# Deployment Tips
-Make an account at [Heroku](https://www.heroku.com/).
-
->>>>>>> f107de6f6552ce8f15383c73eb27de08a05d6468
