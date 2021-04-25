@@ -19,6 +19,9 @@ class HomePage extends React.Component {
     return (
       <div> 
         This is the Home Page.
+        <br/>
+        <button> button 1</button>
+        <button>button 2</button>
       </div>
     );
   }
