@@ -1,5 +1,7 @@
-export const COLORS = {
+const COLORS = {
     white: '#fff',
     black: '#000',
     // your colors
 }
+
+export default COLORS;

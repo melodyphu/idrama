@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 
 class MemorizationAid extends React.Component {
   constructor(props) {

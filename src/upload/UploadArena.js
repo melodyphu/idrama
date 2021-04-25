@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 
 class UploadArena extends React.Component {
   constructor(props) {

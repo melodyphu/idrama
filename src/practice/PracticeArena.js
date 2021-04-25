@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 
 class PracticeArena extends React.Component {
   constructor(props) {

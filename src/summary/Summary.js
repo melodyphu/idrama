@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Tutorial extends React.Component {
+class Summary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,10 +18,10 @@ class Tutorial extends React.Component {
   render() {
     return (
       <div> 
-        This is the Tutorial screen.
+        This is the Summary Screen.
       </div>
     );
   }
 }
 
-export default Tutorial;
+export default Summary;
