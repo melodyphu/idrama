@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import "../toolbar/toolbarstyle.css"
-
+import COLORS from '../constants/Colors';
 
 const styles = {
   root: {
@@ -35,11 +35,7 @@ class AppToolbar extends React.Component {
     render() {
         return (
             <div className={styles.root}>
-<<<<<<< HEAD
-              <AppBar color="primary" position="fixed" min-height="100px">
-=======
-              <AppBar style={styles.appbar} position="static" min-height="100px">
->>>>>>> 2f54b53726458e569eb72d20035389dfcc9cfadd
+              <AppBar color="primary" position="static" min-height="100px">
                 <Toolbar className="Logo">
                     <h1><span>i</span>Drama</h1>
                 </Toolbar>
