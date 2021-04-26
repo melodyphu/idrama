@@ -10,9 +10,9 @@ const styles = {
   root: {
     flexGrow: 1,
   },
-  appbar: {
-    backgroundColor: COLORS['purple'],
-  },
+  // appbar: {
+  //   backgroundColor: COLORS['purple'],
+  // },
 };
 
 class AppToolbar extends React.Component {
@@ -33,7 +33,7 @@ class AppToolbar extends React.Component {
     render() {
         return (
             <div className={styles.root}>
-              <AppBar style={styles.appbar} position="static" min-height="100px">
+              <AppBar position="static" min-height="100px">
                 <Toolbar className="Logo">
                     <h1><span>i</span>Drama</h1>
                 </Toolbar>
