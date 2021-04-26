@@ -2,9 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 
-import COLORS from "../constants/Colors";
 import "../toolbar/toolbarstyle.css"
 
 
@@ -38,7 +36,7 @@ class AppToolbar extends React.Component {
     render() {
         return (
             <div className={styles.root}>
-              <AppBar color="primary" position="static" min-height="100px">
+              <AppBar color="primary" position="fixed" min-height="100px">
                 <Toolbar className="Logo">
                     <h1><span>i</span>Drama</h1>
                 </Toolbar>

@@ -4,6 +4,7 @@
 * {
     margin: 0;
     padding: 0;
+    overflow: hidden;
   }
   
   :root{
@@ -13,20 +14,36 @@
    --purple: #D490ED;
   }
     
-  .Spacer{
+  .Top{
     height: 60vw;
+    margin-top: 10px;
+    background: url("../../src/imgs/stage.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 70vh;
   }
 
-  .Formatted {
+  .Bottom {
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    padding: 10vh;
   }
 
-  .Formatted button{
+  .Bottom button{
     background-color: var(--gray);
     font-family: "poppins", sans-serif;
     font-weight: bold;
     font-size: medium;
+    min-width: 20%;
+    width: 20vw;
+    height: 7vh;
+  }
+
+  .Bottom button:hover{
+    transform: translateY(-3px);
+    background-color: yellow;
+    color: var(--background)
   }
 
  .Holder{
@@ -35,4 +52,5 @@
    width: 100vw;
    color: var(--light);
    font-family: "poppins",sans-serif;
+   max-width: 100%;
  }

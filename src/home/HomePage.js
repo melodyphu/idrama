@@ -18,13 +18,11 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div> 
         <div className="Holder">
-          
-          <div className="Spacer">
-            
+          <div className="Top">
+
           </div>
-          <div className="Formatted">
+          <div className="Bottom">
             <Button
               variant="contained"
               color="primary"
@@ -34,18 +32,19 @@ class HomePage extends React.Component {
             >
               Start
             </Button>
+
             <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              endIcon={<HelpIcon />}
-              onClick={() => this.props.switchScreen(SCREENS.tutorial)}
-            >
-              Help
-            </Button>
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        endIcon={<HelpIcon />}
+                        onClick={() => this.props.switchScreen(SCREENS.tutorial)}
+                      >
+                        Help
+                    </Button>
+          </div>
         </div>
-        </div>
-      </div>
+
     );
   }
 }
