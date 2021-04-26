@@ -8,17 +8,16 @@ import COLORS from "../constants/Colors";
 import "../toolbar/toolbarstyle.css"
 
 
-const styles = makeStyles((theme) => ({
+const styles = {
   root: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+  appbar: {
+    backgroundColor: COLORS['purple'],
+  }
+};
+
+
 
 class AppToolbar extends React.Component {
     constructor(props) {
@@ -38,7 +37,7 @@ class AppToolbar extends React.Component {
     render() {
         return (
             <div className={styles.root}>
-              <AppBar color="primary" position="static" min-height="100px">
+              <AppBar style={styles.appbar} position="static" min-height="100px">
                 <Toolbar className="Logo">
                     <h1><span>i</span>Drama</h1>
                 </Toolbar>
