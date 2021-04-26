@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  :root{
+   --background: #272525;
+   --gray: #808080;
+   --light: #ebebeb;
+   --purple: #D490ED;
+  }
+
+.Toolbar{
+    width: 100%;
+    height: 100px;
+    display: block;
+    background-color: var(--gray);
+    font-family: 'Knewave';
+}
+
+.Inner_Toolbar{
+    width: 50%;
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+    background-color: red;
+}
+
+.Logo h1{
+    font-family: 'poppins';  
+    height: 100%;
+    float: left;
+    color: white;
+}
+
+.Logo h1 span{
+    font-family: "knewave";
+    font-weight: bolder;
+    color: white;
+    letter-spacing: 3px;
+    animation: animate 1s linear infinite;
+}
+
+@keyframes animate{
+    0%{    
+        color: yellow;
+        text-shadow: none;
+    }
+    50%{
+        color:#fff;
+        text-shadow: 0 0 10px #03bcf4,
+    }
+}

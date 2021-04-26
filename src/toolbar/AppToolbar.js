@@ -5,6 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 import COLORS from "../constants/Colors";
+import "../toolbar/toolbarstyle.css"
+
 
 const styles = makeStyles((theme) => ({
   root: {
@@ -36,11 +38,9 @@ class AppToolbar extends React.Component {
     render() {
         return (
             <div className={styles.root}>
-              <AppBar color={COLORS['black']} position="static">
-                <Toolbar>
-                  <Typography variant="h6" className={styles.title}>
-                    iDrama
-                  </Typography>
+              <AppBar color="primary" position="static" min-height="100px">
+                <Toolbar className="Logo">
+                    <h1><span>i</span>Drama</h1>
                 </Toolbar>
               </AppBar>
             </div>
