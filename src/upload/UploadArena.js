@@ -11,6 +11,8 @@ import NextIcon from '@material-ui/icons/ArrowForward';
 import UploadIcon from "@material-ui/icons/Publish";
 import CancelIcon from "@material-ui/icons/Clear";
 
+import "../upload/upload.css"
+
 // check out https://yuvaleros.github.io/material-ui-dropzone/ for documentation
 class UploadArena extends React.Component {
   constructor(props) {
@@ -47,7 +49,7 @@ class UploadArena extends React.Component {
     switch (this.state.step) {
       case UPLOAD_STEPS.upload:
         return (
-          <div>
+          <div className="Bottom">
             <Button
               variant="contained"
               color="primary"

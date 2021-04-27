@@ -13,13 +13,6 @@
    --light: #ebebeb;
    --purple: #D490ED;
   }
-    
-  .Top{
-    background: url("../../src/imgs/stage.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 70vh;
-  }
 
   .Bottom {
     display: flex;
@@ -43,12 +36,3 @@
     background-color: turquoise;
     color: var(--background)
   }
-
- .Holder{
-   background-color: var(--background);
-   height: 100vw;
-   width: 100vw;
-   color: var(--light);
-   font-family: "poppins",sans-serif;
-   max-width: 100%;
- }

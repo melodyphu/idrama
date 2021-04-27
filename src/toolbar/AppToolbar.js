@@ -33,7 +33,7 @@ class AppToolbar extends React.Component {
     render() {
         return (
             <div className={styles.root}>
-              <AppBar position="static" min-height="100px">
+              <AppBar color="primary" position="static" min-height="100px">
                 <Toolbar className="Logo">
                     <h1><span>i</span>Drama</h1>
                 </Toolbar>

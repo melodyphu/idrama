@@ -15,10 +15,19 @@
   }
     
   .Top{
-    background: url("../../src/imgs/stage.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 70vh;
+    background-repeat: no-repeat;
+  }
+
+  .Top h1{
+    color: white
+  }
+
+  .Top h1 span{
+    background-color: var(--background);
   }
 
   .Bottom {

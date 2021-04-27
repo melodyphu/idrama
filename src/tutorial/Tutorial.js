@@ -5,6 +5,8 @@ import {SCREENS} from './../constants/Navigation';
 import Button from '@material-ui/core/Button';
 import HomeIcon from '@material-ui/icons/Home';
 
+import "../tutorial/tutorial.css"
+
 class Tutorial extends React.Component {
   constructor(props) {
     super(props);
@@ -22,10 +24,12 @@ class Tutorial extends React.Component {
 
   render() {
     return (
-      <div>
-        <div> 
-          This is the Tutorial screen.
+      <div className="Holder">
+        <div className="Top">
+         <h1><span>~This tutorial page is under construction~</span></h1>
         </div>
+        
+        <div className="Bottom">
         <Button
         variant="contained"
         color="primary"
@@ -35,6 +39,7 @@ class Tutorial extends React.Component {
         >
           Home
         </Button>
+        </div>
       </div>
     );
   }
