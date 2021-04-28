@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // documentation: https://www.npmjs.com/package/react-webcam
 import Webcam from "react-webcam";
@@ -25,54 +25,6 @@ import FinishIcon from '@material-ui/icons/Done';
 
 import "./practice.css"
 
-const classes = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    height: 140,
-    width: 100,
-  },
-  control: {
-    padding: theme.spacing(2),
-  },
-}));
-
-const commands = [
-  {
-    command: 'iDrama start',
-    callback: () => this.setState({active: true, lineIdx: 0})
-  },
-  {
-    command: 'iDrama pause',
-    callback: () => this.setState({active: false})
-  },
-  {
-    command: 'iDrama stop',
-    callback: () => this.setState({active: false}) // figure out what's different for these too!
-  },
-  {
-    command: 'iDrama resume',
-    callback: () => this.setState({active: true}) // figure out what's different for these too!
-  },
-  {
-    command: 'iDrama restart',
-    callback: () => this.setState({active: true, lineIdx: 0}) // figure out what's different for these too!
-  },
-  {
-    command: 'iDrama next line',
-    callback: () => {
-      
-      this.setMessage()
-      this.setState({lineIdx: this.state.lineIdx + 1});
-    } // figure out what's different for these too!
-  },
-  {
-    command: 'iDrama repeat line',
-    callback: () => this.setState({active: false}) // figure out what's different for these too!
-  },
-]
-
 class PracticeArena extends React.Component {
   constructor(props) {
     super(props);
@@ -84,6 +36,7 @@ class PracticeArena extends React.Component {
       lineIdx: -1,
       currentSpeaker: 0,
       help: false, // whether or not iDrama should 
+      message: "No speech detected",
     }
   }
 
@@ -97,11 +50,6 @@ class PracticeArena extends React.Component {
       selectedSpeaker: selectedSpeaker,
     });
 
-  }
-
-  // checks if the person said "iDrama" plus a valid command
-  isValidCommand = (command) => {
-    
   }
 
   // TODO
@@ -131,9 +79,9 @@ class PracticeArena extends React.Component {
           </div>
         </div>
         <div style={{padding: "2%"}}>
-          <Paper variant="outlined" style={{width: "60%", height: 100}}>
+          <Paper variant="outlined" style={{width: "75%", height: 100}}>
             <Typography variant="h5">
-              {this.getCurrentLine()}
+              {this.state.message}
             </Typography>
           </Paper>
         </div>
