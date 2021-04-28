@@ -167,7 +167,7 @@ class UploadArena extends React.Component {
         );
       case UPLOAD_STEPS.parse:
         return (
-          <div>
+          <div className="Bottom">
             <Button
               variant="contained"
               color="primary"
@@ -181,7 +181,7 @@ class UploadArena extends React.Component {
         );
       case UPLOAD_STEPS.select:
         return (
-          <div>
+          <div className="Bottom">
             <Button
               variant="contained"
               color="primary"

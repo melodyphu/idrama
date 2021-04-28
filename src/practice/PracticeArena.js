@@ -23,6 +23,8 @@ import Button from '@material-ui/core/Button';
 import BackIcon from '@material-ui/icons/ArrowBack';
 import FinishIcon from '@material-ui/icons/Done';
 
+import "./practice.css"
+
 const classes = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -143,24 +145,27 @@ class PracticeArena extends React.Component {
     return (
       <div> 
         {this.getPracticeArena()}
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          endIcon={<BackIcon />}
-          onClick={() => this.props.switchScreen(SCREENS.upload)}
-        >
-          Back
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          endIcon={<FinishIcon />}
-          onClick={() => this.props.switchScreen(SCREENS.summary)}
-        >
-          Finish
-        </Button>
+        <div className="BottomPractice">
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            endIcon={<BackIcon />}
+            onClick={() => this.props.switchScreen(SCREENS.upload)}
+          >
+            Back
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            endIcon={<FinishIcon />}
+            onClick={() => this.props.switchScreen(SCREENS.summary)}
+          >
+            Finish
+          </Button>
+        </div>
+
       </div>
     );
   }
