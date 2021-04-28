@@ -1,5 +1,5 @@
 import React from 'react';
-import RootRef from '@material-ui/core/RootRef';
+import { Link } from "react-router-dom";
 
 import {SCREENS, UPLOAD_STEPS} from './../constants/Navigation';
 
@@ -9,9 +9,10 @@ import {Button, CircularProgress} from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import NextIcon from '@material-ui/icons/ArrowForward';
 import UploadIcon from "@material-ui/icons/Publish";
+import DownloadIcon from "@material-ui/icons/GetApp";
 import CancelIcon from "@material-ui/icons/Clear";
 
-import "../upload/upload.css"
+import "./upload.css"
 
 // check out https://yuvaleros.github.io/material-ui-dropzone/ for documentation
 class UploadArena extends React.Component {
@@ -59,6 +60,17 @@ class UploadArena extends React.Component {
             >
               Home
             </Button>
+            <div>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                endIcon={<DownloadIcon />}
+                onClick={() => this.downloadSampleFile}
+              >
+                <Link to="/SampleFile.txt" target="_blank" download>Sample File</Link>
+              </Button>
+            </div>
             <Button
               variant="contained"
               color="primary"
@@ -67,7 +79,7 @@ class UploadArena extends React.Component {
               disabled={this.state.files.length != 1}
               onClick={() => this.processText()}
             >
-              Upload
+              Upload File
             </Button>
           </div>
         );

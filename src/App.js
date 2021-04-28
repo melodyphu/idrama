@@ -1,6 +1,10 @@
 import logo from './logo.svg';
 import React from 'react';
 
+import {
+  BrowserRouter as Router,
+} from 'react-router-dom';
+
 import './App.css';
 import {SCREENS} from './constants/Navigation';
 import COLORS from './constants/Colors';
@@ -43,10 +47,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <AppToolbar/>
-        {this.getScreen()}
-      </div>
+      <Router>
+        <div>
+          <AppToolbar/>
+          {this.getScreen()}
+        </div>
+      </Router>
 
     );
   }
