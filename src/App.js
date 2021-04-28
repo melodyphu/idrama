@@ -19,19 +19,14 @@ class App extends React.Component {
     }
   }
 
+  // receiving lines, speakers, and selectedSpeaker from UploadArena
   setupPractice = (config) => {
-    const {lines, speakers, selectedSpeaker} = config;
-
-    console.log(config);
     this.setState({
-      practiceConfig: {
-        lines: lines,
-        speakers: speakers,
-        selectedSpeaker: selectedSpeaker,
-      }
+      practiceConfig: config,
     })
   }
 
+  // for navigation buttons
   handleSwitchScreen = (value) => {
     this.setState({
       screen: value

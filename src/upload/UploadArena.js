@@ -186,6 +186,7 @@ class UploadArena extends React.Component {
               size="large"
               endIcon={<NextIcon/>}
               onClick={() => this.beginPractice()}
+              disabled={this.state.selectedSpeaker == ''}
             >
               Begin
             </Button>
@@ -230,7 +231,7 @@ class UploadArena extends React.Component {
               >
                 {this.state.speakers.map(speaker => {
                   return (
-                    <MenuItem value={speaker}>
+                    <MenuItem value={speaker} key={speaker}>
                       {speaker}
                     </MenuItem>
                   )
@@ -243,8 +244,6 @@ class UploadArena extends React.Component {
   }
 
   render() {
-    console.log(this.state);
-
     return (
       <div>
         {this.getArena()}

@@ -10,23 +10,39 @@ class PracticeArena extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      lines: [],
+      speakers: [],
+      selectedSpeaker: '',
+      ready: false,
     }
   }
 
-  // called the first time this component is rendered
+  // called once the component receives the practice options
   componentDidMount() {
-    this.setState({
+    let {lines, speakers, selectedSpeaker} = this.props.practiceConfig;
 
-    })
+    this.setState({
+      lines: lines,
+      speakers: speakers,
+      selectedSpeaker: selectedSpeaker,
+      ready: true
+    });
+
+  }
+
+  // only rendered when the system is ready
+  getPracticeArena = () => {
+    return (
+      <div>
+        This is the Practice Arena.
+      </div>
+    )
   }
 
   render() {
     return (
       <div> 
-        <div>
-          This is the Practice Arena.
-        </div>
+        {this.state.ready && this.getPracticeArena()}
         <Button
           variant="contained"
           color="primary"
