@@ -1,14 +1,8 @@
-import logo from './logo.svg';
 import React from 'react';
-
-import {
-  BrowserRouter as Router,
-} from 'react-router-dom';
-
+import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
-import {SCREENS} from './constants/Navigation';
-import COLORS from './constants/Colors';
 
+import {SCREENS} from './constants/Navigation';
 import AppToolbar from './toolbar/AppToolbar';
 import Tutorial from './tutorial/Tutorial';
 import HomePage from './home/HomePage';

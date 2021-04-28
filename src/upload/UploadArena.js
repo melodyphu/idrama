@@ -20,6 +20,8 @@ class UploadArena extends React.Component {
     super(props);
     this.state = {
       files: [],
+      text: "",
+      lines: [],
       step: UPLOAD_STEPS.upload,
     };
     this.fileRef = React.createRef();
@@ -41,9 +43,63 @@ class UploadArena extends React.Component {
 
   // for processing the file aka step 1
   processText = () => {
+    // loading screen
     this.setState({
       step: UPLOAD_STEPS.parse,
     });
+
+    // grab text from the file
+    let file = this.state.files[0];
+
+    file.text().then(text => {
+      // parse the text
+      let {speakers, lines} = this.getLines(text);
+
+      // update but make em wait :D
+      setTimeout(() => {
+        this.setState({
+          text: text,
+          lines: lines,
+          speakers: speakers,
+          step: UPLOAD_STEPS.select,
+        })
+      }, 5000);
+
+    })
+  }
+
+  // parses the text into an array of {speaker: "Speaker 1", line: ["word", "word", ...] }
+  getLines = (text) => {
+    let uniqueSpeakers = [];
+
+    let lines = text.split("\n");
+
+    let linesBySpeaker = lines.map(line => {
+      let [speaker, ...rest] = line.split(':');
+
+      // if speaker is new, add to uniqueSpeakers
+      if (!uniqueSpeakers.includes(speaker)) {
+        uniqueSpeakers.push(speaker);
+      }
+
+      // rejoin the other words
+      rest = rest.join(":")
+
+      // get rid of special characters
+      rest = rest.replace(/[^a-zA-Z ]/g, "")
+      
+      // split into individual words
+      rest = rest.split(" ");
+
+      // remove any empty strings
+      rest = rest.filter(item => item);
+
+      // reformat
+      return {"speaker": speaker, "line": rest};
+    })
+
+    return {speakers: uniqueSpeakers, lines: linesBySpeaker};
+
   }
 
   getNavButtons() {
@@ -131,6 +187,7 @@ class UploadArena extends React.Component {
         return (
           <div>
             <CircularProgress />
+            <br/>
             Your file is being processed.
           </div>
         );
@@ -142,6 +199,8 @@ class UploadArena extends React.Component {
   }
 
   render() {
+    console.log(this.state);
+
     return (
       <div>
         {this.getArena()}
