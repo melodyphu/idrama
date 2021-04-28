@@ -4,7 +4,14 @@ import { Link } from "react-router-dom";
 import {SCREENS, UPLOAD_STEPS} from './../constants/Navigation';
 
 import {DropzoneArea} from 'material-ui-dropzone';
-import {Button, CircularProgress} from '@material-ui/core';
+import {
+  Button, 
+  CircularProgress, 
+  Select, 
+  MenuItem,
+  InputLabel,
+  FormControl
+} from '@material-ui/core';
 
 import HomeIcon from '@material-ui/icons/Home';
 import NextIcon from '@material-ui/icons/ArrowForward';
@@ -23,6 +30,7 @@ class UploadArena extends React.Component {
       text: "",
       lines: [],
       step: UPLOAD_STEPS.upload,
+      selectedSpeaker: '',
     };
     this.fileRef = React.createRef();
   }
@@ -63,7 +71,7 @@ class UploadArena extends React.Component {
           speakers: speakers,
           step: UPLOAD_STEPS.select,
         })
-      }, 5000);
+      }, 3000);
 
     })
   }
@@ -102,6 +110,23 @@ class UploadArena extends React.Component {
 
   }
 
+  handleSelectSpeaker = (event) => {
+    this.setState({
+      selectedSpeaker: event.target.value
+    });
+  }
+
+  beginPractice = () => {
+    let config = {
+      lines: this.state.lines,
+      speakers: this.state.speakers,
+      selectedSpeaker: this.state.selectedSpeaker
+    };
+
+    this.props.setupPractice(config);
+    this.props.switchScreen(SCREENS.practice);
+  }
+
   getNavButtons() {
     switch (this.state.step) {
       case UPLOAD_STEPS.upload:
@@ -122,7 +147,6 @@ class UploadArena extends React.Component {
                 color="primary"
                 size="large"
                 endIcon={<DownloadIcon />}
-                onClick={() => this.downloadSampleFile}
               >
                 <Link to="/SampleFile.txt" target="_blank" download>Sample File</Link>
               </Button>
@@ -161,7 +185,7 @@ class UploadArena extends React.Component {
               color="primary"
               size="large"
               endIcon={<NextIcon/>}
-              onClick={() => this.props.switchScreen(SCREENS.practice)}
+              onClick={() => this.beginPractice()}
             >
               Begin
             </Button>
@@ -193,7 +217,27 @@ class UploadArena extends React.Component {
         );
       case UPLOAD_STEPS.select:
         return (
-          <div></div>
+          <div>
+            <FormControl style={{minWidth: 200}}>
+              <InputLabel id="select-speaker-label">
+                Select Your Role
+              </InputLabel>
+              <Select
+                labelId="select-speaker"
+                id="select-speaker"
+                value={this.state.selectedSpeaker}
+                onChange={this.handleSelectSpeaker}
+              >
+                {this.state.speakers.map(speaker => {
+                  return (
+                    <MenuItem value={speaker}>
+                      {speaker}
+                    </MenuItem>
+                  )
+                })}
+              </Select>
+            </FormControl>
+          </div>
         );
     }
   }
