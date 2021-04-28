@@ -142,14 +142,16 @@ class UploadArena extends React.Component {
               Home
             </Button>
             <div>
+            <Link to="/SampleFile.txt" target="_blank" download>
               <Button
                 variant="contained"
                 color="primary"
                 size="large"
                 endIcon={<DownloadIcon />}
               >
-                <Link to="/SampleFile.txt" target="_blank" download>Sample File</Link>
+                Sample File
               </Button>
+            </Link>
             </div>
             <Button
               variant="contained"
