@@ -110,12 +110,14 @@ class UploadArena extends React.Component {
 
   }
 
+  // switches the speaker that the user wants
   handleSelectSpeaker = (event) => {
     this.setState({
       selectedSpeaker: event.target.value
     });
   }
 
+  // sends practice config back to parent component, App.js
   beginPractice = () => {
     let config = {
       lines: this.state.lines,
