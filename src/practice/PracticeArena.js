@@ -3,13 +3,73 @@ import React from 'react';
 // documentation: https://www.npmjs.com/package/react-webcam
 import Webcam from "react-webcam";
 
-import {SCREENS} from './../constants/Navigation';
+// tutorial: https://www.loginradius.com/blog/async/quick-look-at-react-speech-recognition/
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
-import {Typography, Paper} from '@material-ui/core';
+import {SCREENS} from './../constants/Navigation';
+import {
+  VOICE_COMAMNDS, 
+  LINE_COMMANDS, 
+  MESSAGE_TYPES,
+  TIPS
+} from "../constants/Speech";
+
+import Tips from "./Tips";
+
+import {Typography, Paper, Grid} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
 import BackIcon from '@material-ui/icons/ArrowBack';
 import FinishIcon from '@material-ui/icons/Done';
+
+const classes = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    height: 140,
+    width: 100,
+  },
+  control: {
+    padding: theme.spacing(2),
+  },
+}));
+
+const commands = [
+  {
+    command: 'iDrama start',
+    callback: () => this.setState({active: true, lineIdx: 0})
+  },
+  {
+    command: 'iDrama pause',
+    callback: () => this.setState({active: false})
+  },
+  {
+    command: 'iDrama stop',
+    callback: () => this.setState({active: false}) // figure out what's different for these too!
+  },
+  {
+    command: 'iDrama resume',
+    callback: () => this.setState({active: true}) // figure out what's different for these too!
+  },
+  {
+    command: 'iDrama restart',
+    callback: () => this.setState({active: true, lineIdx: 0}) // figure out what's different for these too!
+  },
+  {
+    command: 'iDrama next line',
+    callback: () => {
+      
+      this.setMessage()
+      this.setState({lineIdx: this.state.lineIdx + 1});
+    } // figure out what's different for these too!
+  },
+  {
+    command: 'iDrama repeat line',
+    callback: () => this.setState({active: false}) // figure out what's different for these too!
+  },
+]
 
 class PracticeArena extends React.Component {
   constructor(props) {
@@ -18,9 +78,10 @@ class PracticeArena extends React.Component {
       lines: [],
       speakers: [],
       selectedSpeaker: '',
-      ready: false,
+      active: false,
       lineIdx: -1,
-      speaking: false,
+      currentSpeaker: 0,
+      help: false, // whether or not iDrama should 
     }
   }
 
@@ -32,9 +93,13 @@ class PracticeArena extends React.Component {
       lines: lines,
       speakers: speakers,
       selectedSpeaker: selectedSpeaker,
-      ready: true
     });
 
+  }
+
+  // checks if the person said "iDrama" plus a valid command
+  isValidCommand = (command) => {
+    
   }
 
   // TODO
@@ -49,13 +114,20 @@ class PracticeArena extends React.Component {
 
   }
 
-  // only rendered when the system is ready
+  // only rendered when the system is rendered
   getPracticeArena = () => {
     return (
-      <div width="60%" align="center">
+      <div width="80%" align="center">
         {/* <Typography variant="h2" align='center'>Practice</Typography> */}
         <br/>
-        <Webcam/>
+        <div className="rowC">
+          <div width="30%">
+            <Webcam/>
+          </div>
+          <div width="30%">
+            <Tips/>
+          </div>
+        </div>
         <div style={{padding: "2%"}}>
           <Paper variant="outlined" style={{width: "60%", height: 100}}>
             <Typography variant="h5">
@@ -71,7 +143,7 @@ class PracticeArena extends React.Component {
   render() {
     return (
       <div> 
-        {this.state.ready && this.getPracticeArena()}
+        {this.getPracticeArena()}
         <Button
           variant="contained"
           color="primary"

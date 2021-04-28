@@ -63,15 +63,13 @@ class UploadArena extends React.Component {
       // parse the text
       let {speakers, lines} = this.getLines(text);
 
-      // update but make em wait :D
-      setTimeout(() => {
-        this.setState({
-          text: text,
-          lines: lines,
-          speakers: speakers,
-          step: UPLOAD_STEPS.select,
-        })
-      }, 3000);
+      // update
+      this.setState({
+        text: text,
+        lines: lines,
+        speakers: speakers,
+        step: UPLOAD_STEPS.select,
+      });
 
     })
   }
