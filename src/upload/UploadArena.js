@@ -49,7 +49,7 @@ class UploadArena extends React.Component {
     switch (this.state.step) {
       case UPLOAD_STEPS.upload:
         return (
-          <div className="Bottom">
+          <div>
             <Button
               variant="contained"
               color="primary"
@@ -111,7 +111,7 @@ class UploadArena extends React.Component {
               onChange={(files) => this.updateFiles(files)}
               acceptedFiles={['.txt']}
               filesLimit={1}
-              dropzoneText={"Drag and drop your script here (.txt files only) or click"}
+              dropzoneText={"Drag and drop your script (.txt files only) or click here"}
             />
           </div>
         );
