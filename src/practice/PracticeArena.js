@@ -5,7 +5,7 @@ import Webcam from "react-webcam";
 
 import {SCREENS} from './../constants/Navigation';
 
-import Typography from '@material-ui/core/Typography';
+import {Typography, Paper} from '@material-ui/core';
 
 import Button from '@material-ui/core/Button';
 import BackIcon from '@material-ui/icons/ArrowBack';
@@ -19,6 +19,8 @@ class PracticeArena extends React.Component {
       speakers: [],
       selectedSpeaker: '',
       ready: false,
+      lineIdx: -1,
+      speaking: false,
     }
   }
 
@@ -35,12 +37,33 @@ class PracticeArena extends React.Component {
 
   }
 
+  // TODO
+  getCurrentLine = () => {
+    let lineIdx = this.state.lineIdx;
+
+    if (!this.state.speaking || lineIdx < 0 || lineIdx >= this.state.lines.length) {
+      return "No speech detected";
+    } 
+      
+    return this.state.lines[lineIdx].line.join(" ");
+
+  }
+
   // only rendered when the system is ready
   getPracticeArena = () => {
     return (
-      <div>
-        <Typography variant="h2" align='center'>Practice</Typography>
+      <div width="60%" align="center">
+        {/* <Typography variant="h2" align='center'>Practice</Typography> */}
+        <br/>
         <Webcam/>
+        <div style={{padding: "2%"}}>
+          <Paper variant="outlined" style={{width: "60%", height: 100}}>
+            <Typography variant="h5">
+              {this.getCurrentLine()}
+            </Typography>
+          </Paper>
+        </div>
+
       </div>
     )
   }
