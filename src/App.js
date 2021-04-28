@@ -15,9 +15,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       screen: SCREENS.home,
-      lines: [],
-      speakers: [],
-      selectedSpeaker: '',
+      practiceConfig: {}
     }
   }
 
@@ -26,9 +24,11 @@ class App extends React.Component {
 
     console.log(config);
     this.setState({
-      lines: lines,
-      speakers: speakers,
-      selectedSpeaker: selectedSpeaker,
+      practiceConfig: {
+        lines: lines,
+        speakers: speakers,
+        selectedSpeaker: selectedSpeaker,
+      }
     })
   }
 
@@ -63,6 +63,7 @@ class App extends React.Component {
         return (
           <PracticeArena 
             switchScreen={this.handleSwitchScreen}
+            practiceConfig={this.state.practiceConfig}
           />
         );
       case SCREENS.summary: 
