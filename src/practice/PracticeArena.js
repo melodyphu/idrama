@@ -1,6 +1,11 @@
 import React from 'react';
 
+// documentation: https://www.npmjs.com/package/react-webcam
+import Webcam from "react-webcam";
+
 import {SCREENS} from './../constants/Navigation';
+
+import Typography from '@material-ui/core/Typography';
 
 import Button from '@material-ui/core/Button';
 import BackIcon from '@material-ui/icons/ArrowBack';
@@ -34,7 +39,8 @@ class PracticeArena extends React.Component {
   getPracticeArena = () => {
     return (
       <div>
-        This is the Practice Arena.
+        <Typography variant="h2" align='center'>Practice</Typography>
+        <Webcam/>
       </div>
     )
   }
