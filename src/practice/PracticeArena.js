@@ -117,14 +117,14 @@ class PracticeArena extends React.Component {
   // only rendered when the system is rendered
   getPracticeArena = () => {
     return (
-      <div width="80%" align="center">
+      <div align="center">
         {/* <Typography variant="h2" align='center'>Practice</Typography> */}
         <br/>
-        <div className="rowC">
-          <div width="30%">
+        <div style={{display: "flex", flexDirection: "row"}}>
+          <div style={{flexGrow: 1}}>
             <Webcam/>
           </div>
-          <div width="30%">
+          <div style={{flexGrow: 1}}>
             <Tips/>
           </div>
         </div>
@@ -135,7 +135,6 @@ class PracticeArena extends React.Component {
             </Typography>
           </Paper>
         </div>
-
       </div>
     )
   }

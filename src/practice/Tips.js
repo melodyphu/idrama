@@ -21,7 +21,7 @@ class Tips extends React.Component {
     return (
       <div> 
         <TableContainer component={Paper}>
-            <Table style={{maxWidth: 500}} aria-label="simple table">
+            <Table style={{maxWidth: 600}} aria-label="simple table">
                 <TableHead>
                 <TableRow>
                     <TableCell>Command</TableCell>
