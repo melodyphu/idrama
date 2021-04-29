@@ -82,7 +82,7 @@ class PracticeArena extends React.Component {
             style={{
               margin: "2vh",
               overflow: "auto",
-              maxHeight: "60vh",
+              maxHeight: "65vh",
               flexGrow: 1,
             }}
           >
@@ -92,7 +92,7 @@ class PracticeArena extends React.Component {
             elevation={3}
             style={{
               margin: "2vh",
-              maxHeight: "60vh",
+              maxHeight: "65vh",
               overflow: "auto",
               flexGrow: 1,
             }}

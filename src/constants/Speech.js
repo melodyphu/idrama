@@ -19,8 +19,8 @@ export const MESSAGE_TYPES = {
 };
 
 export const TIP_INFO = [
-//   ["iDrama start", "start practicing again from the top"],
-//   ["iDrama stop", "stop practicing"],
+  ["iDrama restart", "start practicing again from the top"],
+  ["iDrama confirm", "confirm request to restart at the top"],
 //   ["iDrama pause", "pause at the current line you are on"],
 //   ["iDrama resume", "start practicing at the most recent line"],
   ["iDrama line", "ask iDrama for the current line"],

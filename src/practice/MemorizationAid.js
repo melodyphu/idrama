@@ -17,6 +17,8 @@ const MemorizationAid = (props) => {
 
   const [listening, setListening] = useState(false);
 
+  const [needsConfirmRestart, setNeedsConfirmRestart] = useState(false);
+
   const lineMatches = lines.map((entry, index) => {
     return ({
       command: entry.line.join(" "),
@@ -25,7 +27,9 @@ const MemorizationAid = (props) => {
       callback: () => {
         if (lineIdx === index && selectedSpeaker === entry.speaker) {
           setLineIdx(lineIdx + 1);
-          props.setMessage("good");
+          props.setMessage("good!");
+
+          setTimeout(function(){ props.setMessage("waiting for your next line!"); }, 2000);
         }
       }
     })
@@ -49,6 +53,8 @@ const MemorizationAid = (props) => {
           props.setMessage(speaker + ": " + newMessage);
           setLineIdx(lineIdx + 1);
         }
+
+        setTimeout(function(){ props.setMessage("waiting for the same line!"); }, 5000);
       }
     },
     {
@@ -72,6 +78,8 @@ const MemorizationAid = (props) => {
         } else {
           props.setMessage(speaker + ": " + newMessage);
         }
+
+        setTimeout(function(){ props.setMessage("waiting for the same line!"); }, 5000);
       }
     },
     {
@@ -83,13 +91,31 @@ const MemorizationAid = (props) => {
         }
         speak({text: "skipping to the next line"});
         setLineIdx(lineIdx + 1);
+        props.setMessage("waiting for the next line!");
+      }
+    },
+    {
+      command: "i drama restart",
+      callback: () => {
+        speak({text: "are you sure you want to restart?"});
+        setNeedsConfirmRestart(true);
+      }
+    },
+    {
+      command: "i drama confirm",
+      callback: () => {
+        if (needsConfirmRestart) {
+          speak({text: "okay, starting at the beginning"});
+          props.setMessage("restarting");
+          setNeedsConfirmRestart(false);
+          setLineIdx(0);
+          setTimeout(function(){ props.setMessage("waiting for your first line!"); }, 2000);
+        }
       }
     }
   ];
 
   const commands = lineMatches.concat(simpleCommands);
-
-  console.log(commands);
 
   var {
     interimTranscript,
@@ -130,7 +156,7 @@ const MemorizationAid = (props) => {
           endIcon={<ListenIcon />}
           onClick={() => {
             setListening(true);
-            props.setMessage("listening for speech");
+            props.setMessage("waiting for your first line!");
             listenContinuously()
           }}
       >
@@ -145,7 +171,7 @@ const MemorizationAid = (props) => {
         onClick={() => {
           setListening(false);
           SpeechRecognition.abortListening();
-          props.setMessage("click enable to start");
+          props.setMessage("click enable to start!");
         }}
       >
         Disable
