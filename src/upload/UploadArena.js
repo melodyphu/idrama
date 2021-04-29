@@ -45,7 +45,11 @@ class UploadArena extends React.Component {
   // if a user wants to cancel
   cancelFileUpload = () => {
     this.setState({
+      files: [],
+      text: "",
+      lines: [],
       step: UPLOAD_STEPS.upload,
+      selectedSpeaker: '',
     });
   }
 
@@ -182,6 +186,15 @@ class UploadArena extends React.Component {
       case UPLOAD_STEPS.select:
         return (
           <div className="Bottom">
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              endIcon={<CancelIcon />}
+              onClick={() => this.cancelFileUpload()}
+            >
+              Cancel
+            </Button>
             <Button
               variant="contained"
               color="primary"
