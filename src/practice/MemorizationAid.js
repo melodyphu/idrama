@@ -19,9 +19,9 @@ const MemorizationAid = (props) => {
 
   const lineMatches = lines.map((entry, index) => {
     return ({
-      command: entry.line,
+      command: entry.line.join(" "),
       isFuzzyMatch: true,
-      fuzzyMatchingThreshold: 0.5,
+      fuzzyMatchingThreshold: 0.8,
       callback: () => {
         if (lineIdx === index && selectedSpeaker === entry.speaker) {
           setLineIdx(lineIdx + 1);
@@ -88,6 +88,8 @@ const MemorizationAid = (props) => {
   ];
 
   const commands = lineMatches.concat(simpleCommands);
+
+  console.log(commands);
 
   var {
     interimTranscript,
