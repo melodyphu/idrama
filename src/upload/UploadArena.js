@@ -131,7 +131,7 @@ class UploadArena extends React.Component {
     switch (this.state.step) {
       case UPLOAD_STEPS.upload:
         return (
-          <div>
+          <div className="Bottom">
             <Button
               variant="contained"
               color="primary"

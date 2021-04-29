@@ -34,5 +34,5 @@
   .Bottom button:hover{
     transform: translateY(-3px);
     background-color: turquoise;
-    color: var(--background)
+    color: var(--background);
   }
