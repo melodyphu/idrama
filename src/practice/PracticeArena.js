@@ -72,7 +72,7 @@ class PracticeArena extends React.Component {
         <br/>
         <div style={{display: "flex", flexDirection: "row"}}>
           <div style={{flexGrow: 1}}>
-            <Webcam/>
+            <Webcam mirrored={true}/>
           </div>
           <div style={{flexGrow: 1}}>
             <Tips/>
