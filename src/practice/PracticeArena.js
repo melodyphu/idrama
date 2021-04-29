@@ -99,7 +99,7 @@ class PracticeArena extends React.Component {
           </Paper>
         </div>
         <div style={{padding: "2%"}}>
-          <Paper elevation={3} style={{width: "75%", height: 100}}>
+          <Paper elevation={3} style={{width: "69vw", height: "10vh"}}>
             <Typography variant="h5">
               {this.state.message}
             </Typography>
