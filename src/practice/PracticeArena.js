@@ -39,7 +39,7 @@ class PracticeArena extends React.Component {
       lineIdx: -1,
       currentSpeaker: 0,
       help: false, // whether or not iDrama should
-      message: "no speech detected",
+      message: "click enable to start",
     };
   }
 
