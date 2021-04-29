@@ -236,14 +236,16 @@ class UploadArena extends React.Component {
       case UPLOAD_STEPS.select:
         return (
           <div>
-            <Paper style={{margin: "2vh", maxHeight: "60vh", overflow: "auto"}}>
+            <Paper elevation={4} style={{margin: "2vh", maxHeight: "60vh", overflow: "auto"}}>
               {this.state.lines.map(entry => {
+                let weight = (entry.speaker == this.state.selectedSpeaker) ? 'bold' : 'normal';
+
                 return (
-                  <div style={{margin: "1vh"}}>
-                    <Typography color='primary'>
+                  <div style={{margin: "2vh"}}>
+                    <Typography variant='subtitle1' color='primary' style={{fontWeight: weight}}>
                       {entry.speaker}
                     </Typography>
-                    <Typography>
+                    <Typography style={{fontWeight: weight}}>
                       {entry.line.join(" ") + "\n"}
                     </Typography>
                   </div>
