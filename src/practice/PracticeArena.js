@@ -16,6 +16,7 @@ import {
   TIPS,
 } from "../constants/Speech";
 
+import MemorizationAid from "./MemorizationAid";
 import Tips from "./Tips";
 
 import { Typography, Paper, Grid } from "@material-ui/core";
@@ -50,6 +51,18 @@ class PracticeArena extends React.Component {
       lines: lines,
       speakers: speakers,
       selectedSpeaker: selectedSpeaker,
+    });
+  }
+
+  setMessage = (text) => {
+    this.setState({
+      message: text
+    });
+  }
+
+  setActive = (value) => {
+    this.setState({
+      active: value
     });
   }
 
@@ -104,7 +117,7 @@ class PracticeArena extends React.Component {
                 variant="h5"
                 style={{
                   fontStyle:
-                    this.state.currentSpeaker == this.state.selectedSpeaker
+                    this.state.currentSpeaker === this.state.selectedSpeaker
                       ? "normal"
                       : "italic",
                 }}
@@ -132,6 +145,15 @@ class PracticeArena extends React.Component {
           >
             Back
           </Button>
+          {this.state.lines.length > 0 && (
+            <MemorizationAid
+              setMessage={this.setMessage}
+              setActive={this.setActive}
+              lines={this.state.lines}
+              speakers={this.state.speakers}
+              selectedSpeaker={this.state.selectedSpeaker}
+            />
+          )}
           <Button
             variant="contained"
             color="primary"
