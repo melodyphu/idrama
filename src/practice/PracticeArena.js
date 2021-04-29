@@ -70,16 +70,36 @@ class PracticeArena extends React.Component {
       <div align="center">
         {/* <Typography variant="h2" align='center'>Practice</Typography> */}
         <br/>
-        <div style={{display: "flex", flexDirection: "row"}}>
-          <div style={{flexGrow: 1}}>
-            <Webcam mirrored={true}/>
-          </div>
-          <div style={{flexGrow: 1}}>
+        <div style={{
+          display: "flex", 
+          flexDirection: "row",
+          justifyContent: "center"
+        }}>
+          <Paper 
+            elevation={3} 
+            style={{
+              margin: "1vh", 
+              overflow: "auto",
+              maxHeight: "60vh",
+            }}
+          >
+            <Webcam 
+              mirrored={true}
+            />
+          </Paper>
+          <Paper 
+            elevation={3} 
+            style={{
+              margin: "1vh", 
+              maxHeight: "60vh", 
+              overflow: "auto"
+            }}
+          >
             <Tips/>
-          </div>
+          </Paper>
         </div>
         <div style={{padding: "2%"}}>
-          <Paper variant="outlined" style={{width: "75%", height: 100}}>
+          <Paper elevation={3} style={{width: "75%", height: 100}}>
             <Typography variant="h5">
               {this.state.message}
             </Typography>

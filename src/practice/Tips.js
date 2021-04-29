@@ -6,6 +6,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 import {TIP_INFO} from './../constants/Speech';
 
@@ -24,11 +25,20 @@ class Tips extends React.Component {
             <Table style={{maxWidth: 600}} aria-label="simple table">
                 <TableHead>
                 <TableRow>
-                    <TableCell>Command</TableCell>
-                    <TableCell align="right">Description</TableCell>
+                    <TableCell>
+                        <Typography variant='h6' color='primary'>
+                            Command
+                        </Typography>
+                    </TableCell>
+                    <TableCell align='right'>
+                        <Typography variant='h6' color='primary'>
+                            Description
+                        </Typography>
+                    </TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
+                    
                 {TIP_INFO.map((row) => (
                     <TableRow key={row[0]}>
                     <TableCell component="th" scope="row">
