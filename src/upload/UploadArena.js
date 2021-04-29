@@ -157,11 +157,11 @@ class UploadArena extends React.Component {
               variant="contained"
               color="primary"
               size="large"
-              endIcon={<UploadIcon />}
+              endIcon={<NextIcon />}
               disabled={this.state.files.length != 1}
               onClick={() => this.processText()}
             >
-              Upload File
+              Proceed
             </Button>
           </div>
         );
