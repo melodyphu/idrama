@@ -7,15 +7,15 @@ const MemorizationAid = (props) => {
 
   const commands = [
     {
-      command: 'reset',
+      command: 'i drama line',
       callback: () => resetTranscript()
     },
     {
-      command: 'shut up',
+      command: 'i drama skip',
       callback: () => setMessage('I wasn\'t talking.')
     },
     {
-      command: 'Hello',
+      command: 'i drama previous',
       callback: () => setMessage('Hi there!')
     },
   ]

@@ -52,35 +52,22 @@ class PracticeArena extends React.Component {
 
   }
 
-  // TODO
-  getCurrentLine = () => {
-    let lineIdx = this.state.lineIdx;
-
-    if (!this.state.speaking || lineIdx < 0 || lineIdx >= this.state.lines.length) {
-      return "No speech detected";
-    } 
-      
-    return this.state.lines[lineIdx].line.join(" ");
-
-  }
-
   // only rendered when the system is rendered
   getPracticeArena = () => {
     return (
       <div align="center">
-        {/* <Typography variant="h2" align='center'>Practice</Typography> */}
-        <br/>
         <div style={{
           display: "flex", 
           flexDirection: "row",
-          justifyContent: "center"
+          justifyContent: "center",
         }}>
           <Paper 
             elevation={3} 
             style={{
-              margin: "1vh", 
+              margin: "2vh", 
               overflow: "auto",
               maxHeight: "60vh",
+              flexGrow: 1,
             }}
           >
             <Webcam 
@@ -90,19 +77,30 @@ class PracticeArena extends React.Component {
           <Paper 
             elevation={3} 
             style={{
-              margin: "1vh", 
+              margin: "2vh", 
               maxHeight: "60vh", 
-              overflow: "auto"
+              overflow: "auto",
+              flexGrow: 1,
             }}
           >
             <Tips/>
           </Paper>
         </div>
-        <div style={{padding: "2%"}}>
-          <Paper elevation={3} style={{width: "69vw", height: "10vh"}}>
-            <Typography variant="h5">
-              {this.state.message}
-            </Typography>
+        <div style={{padding: "1vh 2vh 2vh"}}>
+          <Paper elevation={3} style={{
+            display: "flex", 
+            alignItems: "center", 
+            width: "100%", 
+            height: "12vh",
+            overflow: "auto",
+            justifyContent: "center"
+          }}>
+            <div>
+              <Typography variant="h5">
+                {this.state.message}
+              </Typography>
+            </div>
+
           </Paper>
         </div>
       </div>

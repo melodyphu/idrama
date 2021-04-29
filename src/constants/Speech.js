@@ -25,8 +25,7 @@ export const TIP_INFO = [
     ["iDrama stop", "stop practicing"],
     ["iDrama pause", "pause at the current line you are on"],
     ["iDrama resume", "start practicing at the most recent line"],
-    ["iDrama line", "ask iDrama for the next line"],
-    ["iDrama repeat line", "ask for iDrama to repeat your current line"],
-    ["iDrama previous line", "ask for the previous line"],
-    ["iDrama skip line", "skip the line you are current on"]
+    ["iDrama line", "ask iDrama for the current line"],
+    ["iDrama previous", "ask iDrama for the previous line"],
+    ["iDrama skip", "skip to the next line"]
 ]
