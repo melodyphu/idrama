@@ -8,51 +8,53 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import {TIP_INFO} from './../constants/Speech';
+import { TIP_INFO } from './../constants/Speech';
 
 class Tips extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      
-    }
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
 
-  render() {
-    return (
-      <div> 
-        <TableContainer component={Paper}>
-            <Table style={{maxWidth: 600}} aria-label="simple table">
-                <TableHead>
-                <TableRow>
-                    <TableCell>
-                        <Typography variant='h6' color='primary'>
-                            Command
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <TableContainer component={Paper}>
+                    <Table style={{ maxWidth: 600 }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>
+                                    <Typography variant='h6' color='primary'>
+                                        Command
                         </Typography>
-                    </TableCell>
-                    <TableCell align='right'>
-                        <Typography variant='h6' color='primary'>
-                            Description
+                                </TableCell>
+                                <TableCell align='right'>
+                                    <Typography variant='h6' color='primary'>
+                                        Description
                         </Typography>
-                    </TableCell>
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                    
-                {TIP_INFO.map((row) => (
-                    <TableRow key={row[0]}>
-                    <TableCell component="th" scope="row">
-                        {row[0]}
-                    </TableCell>
-                    <TableCell align="right">{row[1]}</TableCell>
-                    </TableRow>
-                ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-      </div>
-    );
-  }
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+
+                            {TIP_INFO.map((row) => (
+                                <TableRow key={row[0]}>
+                                    <TableCell component="th" scope="row">
+                                        {"\"" + row[0] + "\""}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        {row[1]}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
+        );
+    }
 }
 
 export default Tips;

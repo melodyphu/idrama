@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 
-import {SCREENS} from './constants/Navigation';
+import { SCREENS } from './constants/Navigation';
 import AppToolbar from './toolbar/AppToolbar';
 import Tutorial from './tutorial/Tutorial';
 import HomePage from './home/HomePage';
@@ -35,38 +35,40 @@ class App extends React.Component {
 
   getScreen = () => {
     switch (this.state.screen) {
-      case SCREENS.tutorial: 
+      case SCREENS.tutorial:
         return (
-          <Tutorial 
+          <Tutorial
             switchScreen={this.handleSwitchScreen}
           />
         );
-      case SCREENS.home: 
+      case SCREENS.home:
         return (
-          <HomePage 
+          <HomePage
             switchScreen={this.handleSwitchScreen}
           />
         );
-      case SCREENS.upload: 
+      case SCREENS.upload:
         return (
-          <UploadArena 
+          <UploadArena
             switchScreen={this.handleSwitchScreen}
             setupPractice={this.setupPractice}
           />
         );
-      case SCREENS.practice: 
+      case SCREENS.practice:
         return (
-          <PracticeArena 
+          <PracticeArena
             switchScreen={this.handleSwitchScreen}
             practiceConfig={this.state.practiceConfig}
           />
         );
-      case SCREENS.summary: 
+      case SCREENS.summary:
         return (
-          <Summary 
+          <Summary
             switchScreen={this.handleSwitchScreen}
           />
         );
+      default:
+        return (<div></div>)
     }
   }
 
@@ -74,7 +76,7 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <AppToolbar/>
+          <AppToolbar />
           {this.getScreen()}
         </div>
       </Router>
