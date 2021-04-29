@@ -10,7 +10,9 @@ import {
   Select, 
   MenuItem,
   InputLabel,
-  FormControl
+  FormControl,
+  Typography,
+  Paper
 } from '@material-ui/core';
 
 import HomeIcon from '@material-ui/icons/Home';
@@ -96,7 +98,7 @@ class UploadArena extends React.Component {
       rest = rest.join(":")
 
       // get rid of special characters
-      rest = rest.replace(/[^a-zA-Z ]/g, "")
+      rest = rest.replace(/[^a-zA-Z0-9. ]+/g, "")
       
       // split into individual words
       rest = rest.split(" ");
@@ -234,6 +236,20 @@ class UploadArena extends React.Component {
       case UPLOAD_STEPS.select:
         return (
           <div>
+            <Paper style={{margin: "2vh", maxHeight: "60vh", overflow: "auto"}}>
+              {this.state.lines.map(entry => {
+                return (
+                  <div style={{margin: "1vh"}}>
+                    <Typography color='primary'>
+                      {entry.speaker}
+                    </Typography>
+                    <Typography>
+                      {entry.line.join(" ") + "\n"}
+                    </Typography>
+                  </div>
+                )
+              })}
+            </Paper>
             <FormControl style={{minWidth: 200}}>
               <InputLabel id="select-speaker-label">
                 Select Your Role

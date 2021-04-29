@@ -1,4 +1,4 @@
-Speaker 1: Files uploaded to iDrama must be .txt files.
+Speaker 1: Files uploaded to iDrama must be text files.
 Speaker 2: Each new line in the file will be treated as a new line in the file. You can create a new line by clicking the "enter" key. 
 Speaker 1: Even if a line runs over onto the next, unless you specifically indicate that it is a new line by clicking "enter", it will be treated as part of the previous line. For example, this is still part of line 3.
 Speaker 2: You can indicate a speaker by typing their name at the begging of a line and adding a colon ( : ) after. 
@@ -8,4 +8,4 @@ Speaker 2: iDrama will detect and keep track of how many speakers are in a file 
 Speaker 1: In this file there are two speakers: me, Speaker 1, and Speaker 2.
 Speaker 2: You will be able to assign speaker parts to yourself and iDrama.
 Speaker 1: You've reached the end of the iDrama file formatting instructions!
-Speaker 2: I'd score this performance a 10/10. 
+Speaker 2: I'd score this performance a 10 out of 10. 
