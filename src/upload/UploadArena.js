@@ -239,7 +239,6 @@ class UploadArena extends React.Component {
             <Paper elevation={4} style={{margin: "2vh", maxHeight: "60vh", overflow: "auto"}}>
               {this.state.lines.map(entry => {
                 let weight = (entry.speaker == this.state.selectedSpeaker) ? 'bold' : 'normal';
-
                 return (
                   <div style={{margin: "2vh"}}>
                     <Typography variant='subtitle1' color='primary' style={{fontWeight: weight}}>
@@ -252,25 +251,28 @@ class UploadArena extends React.Component {
                 )
               })}
             </Paper>
-            <FormControl style={{minWidth: 200}}>
-              <InputLabel id="select-speaker-label">
-                Select Your Role
-              </InputLabel>
-              <Select
-                labelId="select-speaker"
-                id="select-speaker"
-                value={this.state.selectedSpeaker}
-                onChange={this.handleSelectSpeaker}
-              >
-                {this.state.speakers.map(speaker => {
-                  return (
-                    <MenuItem value={speaker} key={speaker}>
-                      {speaker}
-                    </MenuItem>
-                  )
-                })}
-              </Select>
-            </FormControl>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+              <br/>
+              <FormControl style={{minWidth: 200}}>
+                <InputLabel id="select-speaker-label">
+                  Select Your Role
+                </InputLabel>
+                <Select
+                  labelId="select-speaker"
+                  id="select-speaker"
+                  value={this.state.selectedSpeaker}
+                  onChange={this.handleSelectSpeaker}
+                >
+                  {this.state.speakers.map(speaker => {
+                    return (
+                      <MenuItem value={speaker} key={speaker}>
+                        {speaker}
+                      </MenuItem>
+                    )
+                  })}
+                </Select>
+              </FormControl>
+            </div>
           </div>
         );
     }
