@@ -159,7 +159,7 @@ class PracticeArena extends React.Component {
             color="primary"
             size="large"
             endIcon={<FinishIcon />}
-            onClick={() => this.props.switchScreen(SCREENS.summary)}
+            onClick={() => this.props.switchScreen(SCREENS.home)}
           >
             Finish
           </Button>
