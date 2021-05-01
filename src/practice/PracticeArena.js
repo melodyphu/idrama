@@ -95,6 +95,9 @@ class PracticeArena extends React.Component {
               overflow: "auto",
               maxHeight: "65vh",
               flexGrow: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <Webcam 
@@ -107,9 +110,12 @@ class PracticeArena extends React.Component {
             elevation={3}
             style={{
               margin: "2vh",
-              maxHeight: "65vh",
               overflow: "auto",
+              maxHeight: "65vh",
               flexGrow: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <Tips />
@@ -149,6 +155,7 @@ class PracticeArena extends React.Component {
     return (
       <div>
         {this.getPracticeArena()}
+        <br/>
         <div className="BottomPractice">
           <Button
             variant="contained"
