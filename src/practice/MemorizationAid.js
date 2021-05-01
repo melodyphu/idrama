@@ -28,7 +28,7 @@ const MemorizationAid = (props) => {
         if (lineIdx === index && selectedSpeaker === entry.speaker) {
           setLineIdx(lineIdx + 1);
           props.setMessage("good!");
-
+          props.setLineIdx(lineIdx + 1);
           setTimeout(function(){ props.setMessage("waiting for your next line!"); }, 2000);
         }
       }
@@ -51,6 +51,7 @@ const MemorizationAid = (props) => {
           props.setMessage(newMessage);
         } else {
           props.setMessage(speaker + ": " + newMessage);
+          props.setLineIdx(lineIdx + 1);
           setLineIdx(lineIdx + 1);
         }
 
@@ -75,6 +76,7 @@ const MemorizationAid = (props) => {
         if (speaker === selectedSpeaker) {
           props.setMessage(newMessage);
           setLineIdx(lineIdx - 1);
+          props.setLineIdx(lineIdx - 1);
         } else {
           props.setMessage(speaker + ": " + newMessage);
         }
@@ -91,6 +93,7 @@ const MemorizationAid = (props) => {
         }
         speak({text: "skipping to the next line"});
         setLineIdx(lineIdx + 1);
+        props.setLineIdx(lineIdx + 1);
         props.setMessage("waiting for the next line!");
       }
     },
@@ -109,6 +112,7 @@ const MemorizationAid = (props) => {
           props.setMessage("restarting");
           setNeedsConfirmRestart(false);
           setLineIdx(0);
+          props.setLineIdx(0);
           setTimeout(function(){ props.setMessage("waiting for your first line!"); }, 2000);
         }
       }
