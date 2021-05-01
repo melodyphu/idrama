@@ -26,4 +26,5 @@ export const TIP_INFO = [
   ["iDrama line", "ask iDrama for the current line"],
   ["iDrama previous", "ask iDrama for the previous line"],
   ["iDrama skip", "skip to the next line"],
+  ["yes/no", "confirm or cancel a restart"],
 ];

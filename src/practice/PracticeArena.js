@@ -18,15 +18,15 @@ import "./practice.css";
 
 const BorderLinearProgress = withStyles(theme => ({
   root: {
-    height: 10,
-    borderRadius: 5
+    height: 15,
+    borderRadius: 7.5
   },
   colorPrimary: {
     backgroundColor:
       theme.palette.grey[theme.palette.type === "light" ? 200 : 700]
   },
   bar: {
-    borderRadius: 5,
+    borderRadius: 7.5,
     backgroundColor: COLORS.turquoise,
   }
 }))(LinearProgress);
@@ -123,13 +123,13 @@ class PracticeArena extends React.Component {
               display: "flex",
               alignItems: "center",
               width: "100%",
-              height: "12vh",
+              height: "15vh",
               overflow: "auto",
               justifyContent: "center",
             }}
           >
             <Typography
-              variant="h5"
+              variant="h4"
               style={{
                 fontStyle:
                   this.state.currentSpeaker === this.state.selectedSpeaker
