@@ -26,7 +26,6 @@ const VideoCapture = (props) => {
                 handTrack.load().then(model => {
                     model.detect(imageData).then(predictions => {
 
-                        console.log(predictions);
                         // bounding boxes are: [x_min, y_min, width, height]
                         var bbs = {face: null, hands: []};
                         var found = {face: false, hand: false};
