@@ -8,7 +8,6 @@ import Button from "@material-ui/core/Button";
 import ListenIcon from "@material-ui/icons/Hearing";
 import CancelIcon from "@material-ui/icons/Clear";
 
-
 const MemorizationAid = (props) => {
   const {lines, selectedSpeaker} = props;
   const {speak} = useSpeechSynthesis();

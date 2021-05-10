@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-// documentation: https://www.npmjs.com/package/react-webcam
 import Webcam from "react-webcam";
 
 import { SCREENS } from "./../constants/Navigation";
 import MemorizationAid from "./MemorizationAid";
+import VideoCapture from "./VideoCapture";
 import Tips from "./Tips";
 import COLORS from "./../constants/Colors";
 
@@ -31,6 +31,26 @@ const BorderLinearProgress = withStyles(theme => ({
   }
 }))(LinearProgress);
 
+const styles = {
+  halfPaper: {
+    margin: "2vh",
+    overflow: "auto",
+    height: "50vh",
+    // flexGrow: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textPaper: {
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    height: "15vh",
+    overflow: "auto",
+    justifyContent: "center",
+  }
+}
+
 class PracticeArena extends React.Component {
   constructor(props) {
     super(props);
@@ -38,12 +58,13 @@ class PracticeArena extends React.Component {
       lines: [],
       speakers: [],
       selectedSpeaker: "",
-      active: false,
       lineIdx: 0,
       currentSpeaker: 0,
       help: false, // whether or not iDrama should
       message: "click enable to start",
+      commandActive: false,
     };
+    this.webcamRef = React.createRef();
   }
 
   // called once the component receives the practice options
@@ -63,15 +84,15 @@ class PracticeArena extends React.Component {
     });
   }
 
-  setActive = (value) => {
-    this.setState({
-      active: value
-    });
-  }
-
   setLineIdx = (value) => {
     this.setState({
       lineIdx: value
+    })
+  }
+
+  handleToggleCommand = (value) => {
+    this.setState({
+      commandActive: value,
     })
   }
 
@@ -90,33 +111,15 @@ class PracticeArena extends React.Component {
         >
           <Paper
             elevation={3}
-            style={{
-              margin: "2vh",
-              overflow: "auto",
-              maxHeight: "65vh",
-              flexGrow: 1,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+            style={styles.halfPaper}
           >
-            <Webcam 
-              mirrored={true}
-              height={400}
-              width={600}
+            <VideoCapture
+              toggleCommand={this.handleToggleCommand}
             />
           </Paper>
           <Paper
             elevation={3}
-            style={{
-              margin: "2vh",
-              overflow: "auto",
-              maxHeight: "65vh",
-              flexGrow: 1,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+            style={styles.halfPaper}
           >
             <Tips />
           </Paper>
@@ -125,14 +128,7 @@ class PracticeArena extends React.Component {
           <BorderLinearProgress variant="determinate" value={progressValue}/>
           <Paper
             elevation={3}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              width: "100%",
-              height: "15vh",
-              overflow: "auto",
-              justifyContent: "center",
-            }}
+            style={styles.textPaper}
           >
             <Typography
               variant="h4"
@@ -169,7 +165,6 @@ class PracticeArena extends React.Component {
           {this.state.lines.length > 0 && (
             <MemorizationAid
               setMessage={this.setMessage}
-              setActive={this.setActive}
               setLineIdx={this.setLineIdx}
               lines={this.state.lines}
               speakers={this.state.speakers}

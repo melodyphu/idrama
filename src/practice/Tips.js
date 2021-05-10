@@ -20,25 +20,27 @@ class Tips extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{padding: '0vw 5vw'}}>
+                <Typography variant='subtitle1' style={{fontStyle: 'italic'}}>
+                    {"Raise a hand with your palm facing forward to say a command."}
+                </Typography>
                 <TableContainer>
                     <Table style={{ maxWidth: 720 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 <TableCell>
-                                    <Typography variant='h6' color='primary'>
+                                    <Typography variant='subtitle1' color='primary'>
                                         Command
                         </Typography>
                                 </TableCell>
                                 <TableCell align='right'>
-                                    <Typography variant='h6' color='primary'>
+                                    <Typography variant='subtitle1' color='primary'>
                                         Description
                         </Typography>
                                 </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-
                             {TIP_INFO.map((row) => (
                                 <TableRow key={row[0]}>
                                     <TableCell component="th" scope="row">
