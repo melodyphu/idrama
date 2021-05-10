@@ -9,7 +9,9 @@ import ListenIcon from "@material-ui/icons/Hearing";
 import CancelIcon from "@material-ui/icons/Clear";
 
 const MemorizationAid = (props) => {
-  const {lines, selectedSpeaker} = props;
+  console.log(props.handRaised);
+  // needs handRaised = true to issue a special command
+  const {lines, selectedSpeaker, handRaised} = props;
   const {speak} = useSpeechSynthesis();
 
   // line index, max is the length of lines - 1
@@ -40,9 +42,10 @@ const MemorizationAid = (props) => {
 
   const simpleCommands = [
     {
-      command: "i drama line",
+      command: "line",
       callback: () => {
         if (needsConfirmRestart) { return; }
+        if (!handRaised) {return; }
         let {speaker, line} = lines[lineIdx];
         let newMessage = (speaker === selectedSpeaker) 
           ? line.join(" ")
@@ -63,9 +66,10 @@ const MemorizationAid = (props) => {
       }
     },
     {
-      command: "i drama previous",
+      command: "previous",
       callback: () => {
         if (needsConfirmRestart) { return; }
+        if (!handRaised) {return; }
         if (lineIdx - 1 < 0) {
           speak({text: "There are no previous lines"});
           return;
@@ -90,9 +94,10 @@ const MemorizationAid = (props) => {
       }
     },
     {
-      command: "i drama skip",
+      command: "skip",
       callback: () => {
         if (needsConfirmRestart) { return; }
+        if (!handRaised) {return; }
         if (lineIdx + 1 >= lines.length) {
           speak({text: "There are no future lines"});
           return;
@@ -104,9 +109,10 @@ const MemorizationAid = (props) => {
       }
     },
     {
-      command: "i drama restart",
+      command: "restart",
       callback: () => {
         if (needsConfirmRestart) { return; }
+        if (!handRaised) {return; }
         speak({text: "are you sure you want to restart?"});
         setNeedsConfirmRestart(true);
         props.setMessage("respond with yes or no");
@@ -115,6 +121,7 @@ const MemorizationAid = (props) => {
     {
       command: "yes",
       callback: () => {
+        if (!handRaised) {return; }
         if (needsConfirmRestart) {
           speak({text: "okay, starting at the beginning"});
           props.setMessage("restarting");
@@ -128,6 +135,7 @@ const MemorizationAid = (props) => {
     {
       command: "no",
       callback: () => {
+        if (!handRaised) {return; }
         if (needsConfirmRestart) {
           speak({text: "okay, we'll continue from here"});
           setNeedsConfirmRestart(false);

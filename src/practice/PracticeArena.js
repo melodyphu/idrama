@@ -7,14 +7,12 @@ import Tips from "./Tips";
 import COLORS from "./../constants/Colors";
 
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, Paper, LinearProgress } from "@material-ui/core";
+import { Typography, Paper, LinearProgress, Tooltip } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import BackIcon from "@material-ui/icons/ArrowBack";
 import FinishIcon from "@material-ui/icons/Done";
 import HandIcon from "@material-ui/icons/PanTool";
 import FaceIcon from "@material-ui/icons/Face";
-
-import { FloatingButton } from "react-floating-button";
 
 import "./practice.css";
 
@@ -37,10 +35,12 @@ const styles = {
   halfPaper: {
     margin: "2vh",
     overflow: "auto",
-    height: "45vh",
+    height: "46vh",
+    width: "40vw",
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
   },
   textPaper: {
     display: "flex",
@@ -49,6 +49,18 @@ const styles = {
     height: "15vh",
     overflow: "auto",
     justifyContent: "center",
+  },
+  icon: {
+    color: COLORS.turquoise,
+    fontSize: 45,
+    flexGrow: 1,
+  },
+  iconContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    minWidth: "6vw",
   }
 }
 
@@ -131,6 +143,23 @@ class PracticeArena extends React.Component {
               raisedHand={this.state.raisedHand}
               faceVisible={this.state.faceVisible}
             />
+            <div style={styles.iconContainer}>
+              {this.state.faceVisible && (
+                <Tooltip title="face is visible">
+                  <FaceIcon
+                    style={styles.icon}
+                  />
+                </Tooltip>
+              )}
+              {this.state.handRaised && (
+                <Tooltip title="hand is raised">
+                  <HandIcon
+                    style={styles.icon}
+                  />
+                </Tooltip>
+              )}
+            </div>
+
           </Paper>
           <Paper
             elevation={3}
@@ -184,6 +213,7 @@ class PracticeArena extends React.Component {
               lines={this.state.lines}
               speakers={this.state.speakers}
               selectedSpeaker={this.state.selectedSpeaker}
+              handRaised={this.state.handRaised}
             />
           )}
           <Button
