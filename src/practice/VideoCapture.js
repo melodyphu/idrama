@@ -8,8 +8,7 @@ import * as handTrack from 'handtrackjs';
 
 import VIDEO_SPECS from "./../constants/Video";
 
-import {PanTool as HandIcon, Face as FaceIcon} from '@material-ui/icons';
-import { FloatingButton } from "react-floating-button";
+
 
 // for tracking hand for commands + detecting face
 const VideoCapture = (props) => {
