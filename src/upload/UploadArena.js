@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { SCREENS, UPLOAD_STEPS } from "./../constants/Navigation";
+import TEXT_SPECS from "./../constants/Text";
 
 import { DropzoneArea } from "material-ui-dropzone";
 import {
@@ -13,12 +14,18 @@ import {
   FormControl,
   Typography,
   Paper,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider
 } from "@material-ui/core";
 
 import HomeIcon from "@material-ui/icons/Home";
 import NextIcon from "@material-ui/icons/ArrowForward";
 import DownloadIcon from "@material-ui/icons/GetApp";
 import CancelIcon from "@material-ui/icons/Clear";
+import SectionIcon from '@material-ui/icons/ArrowForwardIos';
 
 import "./upload.css";
 
@@ -29,7 +36,7 @@ class UploadArena extends React.Component {
     this.state = {
       files: [],
       text: "",
-      lines: [],
+      script: [],
       step: UPLOAD_STEPS.upload,
       selectedSpeaker: "",
     };
@@ -48,7 +55,7 @@ class UploadArena extends React.Component {
     this.setState({
       files: [],
       text: "",
-      lines: [],
+      script: [],
       step: UPLOAD_STEPS.upload,
       selectedSpeaker: "",
     });
@@ -66,49 +73,79 @@ class UploadArena extends React.Component {
 
     file.text().then((text) => {
       // parse the text
-      let { speakers, lines } = this.getLines(text);
+      let { speakers, script } = this.getScript(text);
 
       // update
       this.setState({
         text: text,
-        lines: lines,
+        script: script,
         speakers: speakers,
         step: UPLOAD_STEPS.select,
       });
     });
   };
 
-  // parses the text into an array of {speaker: "Speaker 1", line: ["word", "word", ...] }
-  getLines = (text) => {
+  // [{section: "Stanza 1", lines: [{speaker: "Speaker 1", line: ["word", "word"]}]}]
+  getScript = (text) => {
+    let allLines = text.split("\n");
+
     let uniqueSpeakers = [];
+    let script = [];
+    
+    let sectionObj = {section: "", lines: []};
+    let sectionIdx = 0;
 
-    let lines = text.split("\n");
+    for (let line of allLines) {
+      // section header
+      if (line.startsWith(TEXT_SPECS.sectionHeader)){
+        // push old section obj into script;
+        if (sectionObj.lines.length > 0) {
+          script.push(sectionObj);
+          sectionObj = {};
+        }
 
-    let linesBySpeaker = lines.map((line) => {
-      let [speaker, ...rest] = line.split(":");
+        // start a new section
+        let sectionName = line.replace(TEXT_SPECS.sectionHeader, "");
+        if (sectionName.length > 0) {
+          sectionObj.section = sectionName;
+        } else { // default section title
+          sectionObj.section = TEXT_SPECS.defaultName + sectionIdx.toString();
+        }
 
-      // if speaker is new, add to uniqueSpeakers
-      if (!uniqueSpeakers.includes(speaker)) {
-        uniqueSpeakers.push(speaker);
+        sectionObj.lines = [];
+        sectionIdx += 1;
+
+      } else { // parse the individual line
+        let [speaker, ...rest] = line.split(":");
+
+        // if speaker is new, add to uniqueSpeakers
+        if (!uniqueSpeakers.includes(speaker)) {
+          uniqueSpeakers.push(speaker);
+        }
+
+        // rejoin the other words
+        rest = rest.join(":");
+
+        // get rid of special characters
+        rest = rest.replace(/[^a-zA-Z0-9. ]+/g, "");
+
+        // split into individual words
+        rest = rest.split(" ");
+
+        // remove any empty strings
+        rest = rest.filter((item) => item);
+
+        sectionObj.lines.push({speaker: speaker, line: rest});
+
       }
+    }
 
-      // rejoin the other words
-      rest = rest.join(":");
+    // if done
+    if (sectionObj.lines.length > 0) {
+      script.push(sectionObj);
+    }
 
-      // get rid of special characters
-      rest = rest.replace(/[^a-zA-Z0-9. ]+/g, "");
-
-      // split into individual words
-      rest = rest.split(" ");
-
-      // remove any empty strings
-      rest = rest.filter((item) => item);
-
-      // reformat
-      return { speaker: speaker, line: rest };
-    });
-
-    return { speakers: uniqueSpeakers, lines: linesBySpeaker };
+    return { speakers: uniqueSpeakers, script: script };
   };
 
   // switches the speaker that the user wants
@@ -121,7 +158,7 @@ class UploadArena extends React.Component {
   // sends practice config back to parent component, App.js
   beginPractice = () => {
     let config = {
-      lines: this.state.lines,
+      script: this.state.script,
       speakers: this.state.speakers,
       selectedSpeaker: this.state.selectedSpeaker,
     };
@@ -129,6 +166,54 @@ class UploadArena extends React.Component {
     this.props.setupPractice(config);
     this.props.switchScreen(SCREENS.practice);
   };
+
+  getScriptPreview() {
+    return (<div>
+      {this.state.script.map((sectionObj) => {
+        return (
+          <div>
+            <List>
+              <ListItem dense={true}>
+                {/* Section Name */}
+                <ListItemIcon>
+                  <SectionIcon/>
+                </ListItemIcon>
+                <ListItemText>
+                  {sectionObj.section}
+                </ListItemText>
+              </ListItem>
+
+              {/* Lines of each Section */}
+              {sectionObj.lines.map((lineObj) => {
+                let weight = 
+                lineObj.speaker === this.state.selectedSpeaker
+                  ? "bold"
+                  : "normal";
+
+                return (
+                  <ListItem dense={true}>
+                    <ListItemText>
+                      <Typography
+                        variant="subtitle1"
+                        color="primary"
+                        style={{ fontWeight: weight }}
+                      >
+                        {lineObj.speaker}
+                      </Typography>
+                      <Typography style={{ fontWeight: weight }}>
+                        {lineObj.line.join(" ") + "\n"}
+                      </Typography>
+                    </ListItemText>
+                  </ListItem>
+                );
+              })}
+            </List>
+            <Divider/>
+          </div>
+        )
+      })}
+    </div>);
+  }
 
   getNavButtons() {
     switch (this.state.step) {
@@ -241,26 +326,7 @@ class UploadArena extends React.Component {
               elevation={4}
               style={{ margin: "2vh", maxHeight: "60vh", overflow: "auto" }}
             >
-              {this.state.lines.map((entry) => {
-                let weight =
-                  entry.speaker === this.state.selectedSpeaker
-                    ? "bold"
-                    : "normal";
-                return (
-                  <div style={{ margin: "2vh" }}>
-                    <Typography
-                      variant="subtitle1"
-                      color="primary"
-                      style={{ fontWeight: weight }}
-                    >
-                      {entry.speaker}
-                    </Typography>
-                    <Typography style={{ fontWeight: weight }}>
-                      {entry.line.join(" ") + "\n"}
-                    </Typography>
-                  </div>
-                );
-              })}
+              {this.getScriptPreview()}
             </Paper>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <br />
