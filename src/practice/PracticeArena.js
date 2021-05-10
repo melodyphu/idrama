@@ -35,7 +35,7 @@ const styles = {
   halfPaper: {
     margin: "2vh",
     overflow: "auto",
-    height: "46vh",
+    height: "47vh",
     width: "40vw",
     display: 'flex',
     alignItems: 'center',
@@ -123,7 +123,7 @@ class PracticeArena extends React.Component {
     return (
       <div align="center">
         <br/>
-        <Typography variant='h6' style={{fontStyle: 'italic'}}>
+        <Typography variant='subtitle1' style={{fontStyle: 'italic'}}>
           {"Raise your hand above your head, palm facing forward to issue an command"}
         </Typography>
         <div

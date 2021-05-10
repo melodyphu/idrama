@@ -19,18 +19,18 @@ class Tips extends React.Component {
 
     render() {
         return (
-            <div style={{padding: '0vw 5vw'}}>
+            <div style={{overflow: "auto"}}>
                 <TableContainer>
-                    <Table style={{ maxWidth: 720 }} aria-label="simple table">
+                    <Table style={{ width: '39vw' }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 <TableCell>
-                                    <Typography variant='subtitle1' color='primary'>
+                                    <Typography variant='subtitle2' color='primary'>
                                         Command
                         </Typography>
                                 </TableCell>
                                 <TableCell align='right'>
-                                    <Typography variant='subtitle1' color='primary'>
+                                    <Typography variant='subtitle2' color='primary'>
                                         Description
                         </Typography>
                                 </TableCell>

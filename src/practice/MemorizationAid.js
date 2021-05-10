@@ -40,6 +40,9 @@ const MemorizationAid = (props) => {
     })
   })
 
+  // TODO: add restart section, previous section, and next sections
+  // also TODO: filter out the section specific ones if there are no sections given by the use
+
   const simpleCommands = [
     {
       command: "line",
@@ -66,7 +69,7 @@ const MemorizationAid = (props) => {
       }
     },
     {
-      command: "previous",
+      command: "previous line",
       callback: () => {
         if (needsConfirmRestart) { return; }
         if (!handRaised) {return; }
@@ -94,7 +97,7 @@ const MemorizationAid = (props) => {
       }
     },
     {
-      command: "skip",
+      command: "next line",
       callback: () => {
         if (needsConfirmRestart) { return; }
         if (!handRaised) {return; }
@@ -109,11 +112,11 @@ const MemorizationAid = (props) => {
       }
     },
     {
-      command: "restart",
+      command: "from beginning",
       callback: () => {
         if (needsConfirmRestart) { return; }
         if (!handRaised) {return; }
-        speak({text: "are you sure you want to restart?"});
+        speak({text: "are you sure you want to restart the entire piece?"});
         setNeedsConfirmRestart(true);
         props.setMessage("respond with yes or no");
       }

@@ -16,10 +16,10 @@ const VideoCapture = (props) => {
         const takeScreenshot = setInterval(() => {
             if (webcamRef.current != null) {
                 // take an image
-                const imgString = webcamRef.current.getScreenshot({width: VIDEO_SPECS.width, height: VIDEO_SPECS.height});
+                let imgString = webcamRef.current.getScreenshot({width: VIDEO_SPECS.width, height: VIDEO_SPECS.height});
                 
                 // convert to HTML image object
-                const imageData = new Image(VIDEO_SPECS.width, VIDEO_SPECS.height);
+                let imageData = new Image(VIDEO_SPECS.width, VIDEO_SPECS.height);
                 imageData.src = imgString;
 
                 // detect face and hand raised
@@ -27,13 +27,13 @@ const VideoCapture = (props) => {
                     model.detect(imageData).then(predictions => {
 
                         // bounding boxes are: [x_min, y_min, width, height]
-                        var bbs = {face: null, hands: []};
-                        var found = {face: false, hand: false};
+                        let bbs = {face: null, hands: []};
+                        let found = {face: false, hand: false};
 
                         // find face and raised hand
-                        for (const detectedObj of predictions) {
-                            const {bbox, label, score} = detectedObj;
-                            const scoreVal = parseFloat(score);
+                        for (let detectedObj of predictions) {
+                            let {bbox, label, score} = detectedObj;
+                            let scoreVal = parseFloat(score);
 
                             if (label === "face" && scoreVal >= VIDEO_SPECS.face_thresh) {
                                 found.face = true;
