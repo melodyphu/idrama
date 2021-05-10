@@ -19,13 +19,13 @@ export const MESSAGE_TYPES = {
 };
 
 export const TIP_INFO = [
-  ["line", "ask iDrama for the current line"],
-  ["previous line", "ask iDrama for the previous line"],
-  ["next line", "skip to the next line"],
-  ["restart section", "restart the current section"],
-  ["previous section", "start the beginning of the previous section"],
-  ["next section", "move to the start of the next section"],
-  ["from beginning", "start practicing from the very top"],
+  ["(iDrama) line", "ask iDrama for the current line"],
+  ["(iDrama) previous line", "ask iDrama for the previous line"],
+  ["(iDrama) next line", "skip to the next line"],
+  ["(iDrama) restart section", "restart the current section"],
+  ["(iDrama) previous section", "start the beginning of the previous section"],
+  ["(iDrama) next section", "move to the start of the next section"],
+  ["(iDrama) from beginning", "start practicing from the very top"],
   // ["yes/no", "confirm or cancel restart of entire piece"],
 ];
 

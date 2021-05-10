@@ -13,6 +13,7 @@ import BackIcon from "@material-ui/icons/ArrowBack";
 import FinishIcon from "@material-ui/icons/Done";
 import HandIcon from "@material-ui/icons/PanTool";
 import FaceIcon from "@material-ui/icons/Face";
+import AudioIcon from '@material-ui/icons/GraphicEq';
 
 import * as handTrack from 'handtrackjs';
 
@@ -81,7 +82,7 @@ class PracticeArena extends React.Component {
       message: "click enable to start",
       handRaised: false,
       faceVisible: false,
-      model: null,
+      isSpeaking: false,
     };
     this.webcamRef = React.createRef();
   }
@@ -98,6 +99,12 @@ class PracticeArena extends React.Component {
         totalLineCount: totalLineCount,
         model: model,
       });
+    })
+  }
+
+  setSpeaking = (value) => {
+    this.setState({
+      isSpeaking: value,
     })
   }
 
@@ -148,7 +155,7 @@ class PracticeArena extends React.Component {
       <div align="center">
         <br/>
         <Typography variant='subtitle1' style={{fontStyle: 'italic'}}>
-          {"Raise your hand above your head, palm facing forward to issue an command"}
+          {"Issue a command by starting saying iDrama <command> or raising your hand above your head, palm facing forward"}
         </Typography>
         <div
           style={{
@@ -166,12 +173,18 @@ class PracticeArena extends React.Component {
               handleShowFace={this.handleShowFace}
               raisedHand={this.state.raisedHand}
               faceVisible={this.state.faceVisible}
-              model={this.state.model}
             />
             <div style={styles.iconContainer}>
               {this.state.faceVisible && (
                 <Tooltip title="face is visible">
                   <FaceIcon
+                    style={styles.icon}
+                  />
+                </Tooltip>
+              )}
+              {this.state.isSpeaking && (
+                <Tooltip title="hand is raised">
+                  <AudioIcon
                     style={styles.icon}
                   />
                 </Tooltip>
@@ -241,6 +254,7 @@ class PracticeArena extends React.Component {
               speakers={this.state.speakers}
               selectedSpeaker={this.state.selectedSpeaker}
               handRaised={this.state.handRaised}
+              setSpeaking={this.setSpeaking}
             />
           )}
           <Button

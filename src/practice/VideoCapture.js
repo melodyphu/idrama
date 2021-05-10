@@ -63,7 +63,7 @@ const VideoCapture = (props) => {
                     });
                 });
             }
-        }, VIDEO_SPECS.freq * 4000);
+        }, VIDEO_SPECS.freq * 1000);
 
         return () => clearInterval(takeScreenshot);
 
