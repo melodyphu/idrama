@@ -37,6 +37,7 @@ class UploadArena extends React.Component {
       files: [],
       text: "",
       script: [],
+      totalLineCount: 0,
       step: UPLOAD_STEPS.upload,
       selectedSpeaker: "",
     };
@@ -56,6 +57,7 @@ class UploadArena extends React.Component {
       files: [],
       text: "",
       script: [],
+      totalLineCount: 0,
       step: UPLOAD_STEPS.upload,
       selectedSpeaker: "",
     });
@@ -73,12 +75,13 @@ class UploadArena extends React.Component {
 
     file.text().then((text) => {
       // parse the text
-      let { speakers, script } = this.getScript(text);
+      let { speakers, script, totalLineCount } = this.getScript(text);
 
       // update
       this.setState({
         text: text,
         script: script,
+        totalLineCount: totalLineCount,
         speakers: speakers,
         step: UPLOAD_STEPS.select,
       });
@@ -94,6 +97,8 @@ class UploadArena extends React.Component {
     
     let sectionObj = {section: "", lines: []};
     let sectionIdx = 0;
+
+    var totalLineCount = 0;
 
     for (let line of allLines) {
       // section header
@@ -113,7 +118,7 @@ class UploadArena extends React.Component {
         }
 
         sectionObj.lines = [];
-        sectionIdx += 1;
+        sectionIdx++;
 
       } else { // parse the individual line
         let [speaker, ...rest] = line.split(":");
@@ -135,6 +140,7 @@ class UploadArena extends React.Component {
         // remove any empty strings
         rest = rest.filter((item) => item);
 
+        totalLineCount++;
         sectionObj.lines.push({speaker: speaker, line: rest});
 
       }
@@ -145,7 +151,7 @@ class UploadArena extends React.Component {
       script.push(sectionObj);
     }
 
-    return { speakers: uniqueSpeakers, script: script };
+    return { speakers: uniqueSpeakers, script: script, totalLineCount: totalLineCount };
   };
 
   // switches the speaker that the user wants
@@ -160,6 +166,7 @@ class UploadArena extends React.Component {
     let config = {
       script: this.state.script,
       speakers: this.state.speakers,
+      totalLineCount: this.state.totalLineCount,
       selectedSpeaker: this.state.selectedSpeaker,
     };
 
@@ -306,7 +313,7 @@ class UploadArena extends React.Component {
               acceptedFiles={[".txt"]}
               filesLimit={1}
               dropzoneText={
-                "Drag and drop your script (.txt files only) or click here"
+                "Drag and drop your solo script (.txt files only) or click here"
               }
             />
           </div>

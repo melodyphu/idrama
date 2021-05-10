@@ -19,19 +19,22 @@ export const MESSAGE_TYPES = {
 };
 
 export const TIP_INFO = [
-  ["from beginning", "start practicing from the very top"],
-  ["restart section*", "restart the current section"],
-
   ["line", "ask iDrama for the current line"],
   ["previous line", "ask iDrama for the previous line"],
   ["next line", "skip to the next line"],
-
-  ["previous section*", "start the beginning of the previous section"],
-  ["next section*", "move to the start of the next section"],
-
-  ["yes/no", "confirm or cancel a restart"],
-
+  ["restart section", "restart the current section"],
+  ["previous section", "start the beginning of the previous section"],
+  ["next section", "move to the start of the next section"],
+  ["from beginning", "start practicing from the very top"],
+  // ["yes/no", "confirm or cancel restart of entire piece"],
 ];
+
+export const CONFIRM_TYPES = {
+  restart_all: 0,
+  restart_section: 1,
+  previous_section: 2,
+  next_section: 3,
+}
 
 //   ["iDrama pause", "pause at the current line you are on"],
 //   ["iDrama resume", "start practicing at the most recent line"],

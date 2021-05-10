@@ -9,34 +9,52 @@ import ListenIcon from "@material-ui/icons/Hearing";
 import CancelIcon from "@material-ui/icons/Clear";
 
 const MemorizationAid = (props) => {
-  console.log(props.handRaised);
-  // needs handRaised = true to issue a special command
-  const {lines, selectedSpeaker, handRaised} = props;
+  // prop variables
+  const {script, selectedSpeaker, handRaised, totalLineCount} = props;
+
   const {speak} = useSpeechSynthesis();
 
-  // line index, max is the length of lines - 1
   const [lineIdx, setLineIdx] = useState(0);
+  const [sectionIdx, setSectionIdx] = useState(0);
 
   // whether or not the browser is listening to someone
   const [listening, setListening] = useState(false);
 
   // needs confirm
-  const [needsConfirmRestart, setNeedsConfirmRestart] = useState(false);
+  const [needsConfirm, setNeedsConfirm] = useState(false);
 
-  const lineMatches = lines.map((entry, index) => {
-    return ({
-      command: entry.line.join(" "),
-      isFuzzyMatch: true,
-      fuzzyMatchingThreshold: 0.8,
-      callback: () => {
-        if (needsConfirmRestart) { return; }
-        if (lineIdx === index && selectedSpeaker === entry.speaker) {
-          setLineIdx(lineIdx + 1);
-          props.setMessage("good!");
-          props.setLineIdx(lineIdx + 1);
-          setTimeout(function(){ props.setMessage("waiting for your next line!"); }, 1000);
+  // voice "commands" aka detecting correctly spoken lines
+  const sectionMatches = script.map((sectionEntry, sidx) => {
+    let lines = sectionEntry.lines;
+
+    return lines.map((lineEntry, lidx) => {
+      return ({
+        command: lineEntry.line.join(" "),
+        isFuzzyMatch: true,
+        fuzzyMatchingThreshold: 0.8,
+        callback: () => {
+          if (needsConfirm) { return; }
+          if (sectionIdx === sidx && lineIdx === lidx) {
+            if (lidx + 1 >= lines.length) {
+              // move to next section
+              props.setLineIdx(0);
+              props.setSectionIdx(sectionIdx + 1);
+
+              setLineIdx(0);
+              setSectionIdx(sectionIdx + 1);
+              
+            } else {
+              // move to next line of section
+              props.setLineIdx(lineIdx + 1);
+              setLineIdx(lineIdx + 1);
+              
+            }
+
+            props.setMessage("good!");
+            setTimeout(function(){ props.setMessage("waiting for your next line!"); }, 1000);
+          }
         }
-      }
+      })
     })
   })
 
@@ -45,110 +63,205 @@ const MemorizationAid = (props) => {
 
   const simpleCommands = [
     {
-      command: "line",
+      command: "line", // asking iDrama for the current line
       callback: () => {
-        if (needsConfirmRestart) { return; }
-        if (!handRaised) {return; }
-        let {speaker, line} = lines[lineIdx];
-        let newMessage = (speaker === selectedSpeaker) 
-          ? line.join(" ")
-          : line.join(" ");  
+        if (needsConfirm) { return; }
+        if (!handRaised) { return; }
+
+        let {line} = script[sectionIdx].lines[lineIdx];
+        let newMessage = line.join(" ");
 
         speak({text: newMessage});
-        
-        // say the line if it's the user's turn
-        if (speaker === selectedSpeaker) {
-          props.setMessage(newMessage);
+        props.setMessage(newMessage);
+        setTimeout(function(){ props.setMessage("waiting for the same line!"); }, 3000);
+      }
+    },
+    {
+      command: "previous line", // asking iDrama for the previous line, will need to repeat that one
+      callback: () => {
+        if (needsConfirm) { return; }
+        if (!handRaised) { return; }
+
+        if (sectionIdx <= 0 && lineIdx <= 0) {
+          speak({text: "There are no previous lines"});
+          return;
+        }
+
+        let {line} = script[sectionIdx].lines[lineIdx];
+        let newMessage = line.join(" ");
+
+        speak({text: newMessage});
+        props.setMessage(newMessage);
+
+        // if at the begininning of a section
+        if (lineIdx === 0) {
+          let newLineIdx = script[sectionIdx].lines.length - 1;
+          let newSectionIdx = sectionIdx - 1;
+
+          props.setLineIdx(newLineIdx);
+          props.setSectionIdx(newSectionIdx);
+
+          setLineIdx(newLineIdx);
+          setSectionIdx(newSectionIdx);
+          
+        // normal
         } else {
-          props.setMessage(speaker + ": " + newMessage);
+          props.setLineIdx(lineIdx - 1);
+          setLineIdx(lineIdx - 1);
+        }
+
+        setTimeout(function(){ props.setMessage("Waiting for the previous line"); }, 3000);
+      }
+    },
+    {
+      command: "next line", // asking iDrama to move to the next line but with no hint
+      callback: () => {
+        if (needsConfirm) { return; }
+        if (!handRaised) { return; }
+
+        if (sectionIdx >= script.length - 1 && lineIdx >= script[sectionIdx].lines.length - 1) {
+          speak({text: "There are no upcoming lines"});
+          return;
+        }
+
+        speak({text: "Skipping to the next line"});
+
+        // if at the end of the section
+        if (lineIdx >= script[sectionIdx].lines.length - 1) {
+          props.setLineIdx(0);
+          props.setSectionIdx(sectionIdx + 1);
+          
+          setLineIdx(0);
+          setSectionIdx(sectionIdx + 1);
+
+        } else {
           props.setLineIdx(lineIdx + 1);
           setLineIdx(lineIdx + 1);
         }
 
-        setTimeout(function(){ props.setMessage("waiting for the same line!"); }, 3000);
+        props.setMessage("Waiting for the next line!");
       }
     },
     {
-      command: "previous line",
+      command: "from beginning", // asking iDrama to restart the whole thing, needs confirmation
       callback: () => {
-        if (needsConfirmRestart) { return; }
-        if (!handRaised) {return; }
-        if (lineIdx - 1 < 0) {
-          speak({text: "There are no previous lines"});
-          return;
-        }
-        let {speaker, line} = lines[lineIdx-1];
+        if (needsConfirm) { return; }
+        if (!handRaised) { return; }
 
-        let newMessage = (speaker === selectedSpeaker) 
-          ? line.join(" ")
-          : line.join(" ");  
+        let message = "Are you sure you want to start at the very beginning? Answer with yes or no.";
+        speak({text: message});
+        props.setMessage(message);
+        setNeedsConfirm(true);
+      }
+    },
+    {
+      command: "restart section", // asking iDrama to restart the current section
+      callback: () => {
+        if (needsConfirm) { return; }
+        if (!handRaised) { return; }
+
+        let {section, lines} = script[sectionIdx];
+        let {line} = lines[0];
+        let newMessage = "Restarting " + section + ". Your first word is... " + line[0];
 
         speak({text: newMessage});
+        props.setMessage(newMessage);
 
-        if (speaker === selectedSpeaker) {
-          props.setMessage(newMessage);
-          setLineIdx(lineIdx - 1);
-          props.setLineIdx(lineIdx - 1);
-        } else {
-          props.setMessage(speaker + ": " + newMessage);
-        }
+        props.setLineIdx(0);
+        setLineIdx(0);
 
-        setTimeout(function(){ props.setMessage("waiting for the same line!"); }, 3000);
+        let finalMessage = "Waiting for the first line of " + section;
+        setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
     },
     {
-      command: "next line",
+      command: "previous section", // asking iDrama to move to the previous section
       callback: () => {
-        if (needsConfirmRestart) { return; }
-        if (!handRaised) {return; }
-        if (lineIdx + 1 >= lines.length) {
-          speak({text: "There are no future lines"});
+        if (needsConfirm) { return; }
+        if (!handRaised) { return; }
+
+        if (sectionIdx <= 0) {
+          speak({text: "There are no previous sections"});
           return;
         }
-        speak({text: "skipping to the next line"});
-        setLineIdx(lineIdx + 1);
-        props.setLineIdx(lineIdx + 1);
-        props.setMessage("waiting for the next line!");
+
+        let {section, lines} = script[sectionIdx - 1];
+        let {line} = lines[0];
+        let newMessage = "Starting back at " + section + ". Your first word is... " + line[0];
+
+        speak({text: newMessage});
+        props.setMessage(newMessage);
+
+        props.setLineIdx(0);
+        props.setSectionIdx(sectionIdx - 1);
+        setLineIdx(0);
+        setSectionIdx(sectionIdx - 1);
+
+        let finalMessage = "Waiting for the first line of " + section;
+        setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
     },
     {
-      command: "from beginning",
+      command: "next section", // asking iDrama to move to the next section
       callback: () => {
-        if (needsConfirmRestart) { return; }
-        if (!handRaised) {return; }
-        speak({text: "are you sure you want to restart the entire piece?"});
-        setNeedsConfirmRestart(true);
-        props.setMessage("respond with yes or no");
+        if (needsConfirm) { return; }
+        if (!handRaised) { return; }
+
+        if (sectionIdx >= script.length - 1) {
+          speak({text: "There are no previous sections"});
+          return;
+        }
+
+        let {section, lines} = script[sectionIdx + 1];
+        let {line} = lines[0];
+        let newMessage = "Skipping ahead to " + section + ". Your first word is... " + line[0];
+
+        speak({text: newMessage});
+        props.setMessage(newMessage);
+
+        props.setLineIdx(0);
+        props.setSectionIdx(sectionIdx + 1);
+        setLineIdx(0);
+        setSectionIdx(sectionIdx + 1);
+
+        let finalMessage = "Waiting for the first line of " + section;
+        setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
     },
     {
       command: "yes",
       callback: () => {
-        if (!handRaised) {return; }
-        if (needsConfirmRestart) {
-          speak({text: "okay, starting at the beginning"});
-          props.setMessage("restarting");
-          setNeedsConfirmRestart(false);
-          setLineIdx(0);
-          props.setLineIdx(0);
-          setTimeout(function(){ props.setMessage("waiting for your first line!"); }, 1000);
-        }
+        if (!needsConfirm) { return; }
+        // if (!handRaised) { return; }
+
+        speak({text: "Okay, starting at the beginning"});
+        props.setMessage("Restarting");
+        
+        props.setLineIdx(0);
+        props.setSectionIdx(0);
+
+        setLineIdx(0);
+        setSectionIdx(0);
+        
+        setNeedsConfirm(false);
+        setTimeout(function(){ props.setMessage("Waiting for your very first line!"); }, 1000);
       }
     },
     {
       command: "no",
       callback: () => {
-        if (!handRaised) {return; }
-        if (needsConfirmRestart) {
+        if (!handRaised) { return; }
+        if (needsConfirm) {
           speak({text: "okay, we'll continue from here"});
-          setNeedsConfirmRestart(false);
-          props.setMessage("waiting for your next line!");
+          setNeedsConfirm(false);
+          props.setMessage("waiting for your line!");
         }
       }
     }
   ];
 
-  const commands = lineMatches.concat(simpleCommands);
+  // flatten section match commands first, then concat
+  const commands = sectionMatches.flat().concat(simpleCommands);
 
   var {
     interimTranscript,
@@ -169,15 +282,6 @@ const MemorizationAid = (props) => {
       continuous: true,
       language: "en-US",
     });
-
-    let {line, speaker} = lines[lineIdx];
-
-    if (speaker !== selectedSpeaker) {
-      speak({text: line.join(" ")});
-      props.setMessage(speaker + ": " + line.join(" "));
-      setLineIdx(lineIdx + 1);
-    }
-
   };
 
   return (

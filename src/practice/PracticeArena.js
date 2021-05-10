@@ -14,6 +14,8 @@ import FinishIcon from "@material-ui/icons/Done";
 import HandIcon from "@material-ui/icons/PanTool";
 import FaceIcon from "@material-ui/icons/Face";
 
+import * as handTrack from 'handtrackjs';
+
 import "./practice.css";
 
 const BorderLinearProgress = withStyles(theme => ({
@@ -68,28 +70,35 @@ class PracticeArena extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lines: [],
+      script: [],
       speakers: [],
+      totalLineCount: 0,
       selectedSpeaker: "",
+      sectionIdx: 0,
       lineIdx: 0,
       currentSpeaker: 0,
       help: false, // whether or not iDrama should
       message: "click enable to start",
       handRaised: false,
       faceVisible: false,
+      model: null,
     };
     this.webcamRef = React.createRef();
   }
 
   // called once the component receives the practice options
   componentDidMount() {
-    let { lines, speakers, selectedSpeaker } = this.props.practiceConfig;
+    let { script, speakers, selectedSpeaker, totalLineCount } = this.props.practiceConfig;
 
-    this.setState({
-      lines: lines,
-      speakers: speakers,
-      selectedSpeaker: selectedSpeaker,
-    });
+    handTrack.load().then(model => {
+      this.setState({
+        script: script,
+        speakers: speakers,
+        selectedSpeaker: selectedSpeaker,
+        totalLineCount: totalLineCount,
+        model: model,
+      });
+    })
   }
 
   setMessage = (text) => {
@@ -101,6 +110,12 @@ class PracticeArena extends React.Component {
   setLineIdx = (value) => {
     this.setState({
       lineIdx: value
+    })
+  }
+
+  setSectionIdx = (value) => {
+    this.setState({
+      sectionIdx: value,
     })
   }
 
@@ -116,9 +131,18 @@ class PracticeArena extends React.Component {
     })
   }
 
+  getGlobalLineIdx = () => {
+    let total = 0;
+    for (let i = 0; i < this.state.sectionIdx; i++) {
+      total += this.state.script[i].lines.length;
+
+    }
+    return total += this.state.lineIdx;
+  }
+
   // only rendered when the system is rendered
   getPracticeArena = () => {
-    var progressValue = this.state.lineIdx / this.state.lines.length * 100;
+    var progressValue = this.getGlobalLineIdx() / this.state.totalLineCount * 100;
 
     return (
       <div align="center">
@@ -142,6 +166,7 @@ class PracticeArena extends React.Component {
               handleShowFace={this.handleShowFace}
               raisedHand={this.state.raisedHand}
               faceVisible={this.state.faceVisible}
+              model={this.state.model}
             />
             <div style={styles.iconContainer}>
               {this.state.faceVisible && (
@@ -206,11 +231,13 @@ class PracticeArena extends React.Component {
           >
             Back
           </Button>
-          {this.state.lines.length > 0 && (
+          {this.state.script.length > 0 && (
             <MemorizationAid
               setMessage={this.setMessage}
               setLineIdx={this.setLineIdx}
-              lines={this.state.lines}
+              setSectionIdx={this.setSectionIdx}
+              script={this.state.script}
+              totalLineCount={this.state.totalLineCount}
               speakers={this.state.speakers}
               selectedSpeaker={this.state.selectedSpeaker}
               handRaised={this.state.handRaised}
