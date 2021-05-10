@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback} from "react";
+import React, { useEffect, useRef} from "react";
 
 // documentation: https://www.npmjs.com/package/react-webcam
 import Webcam from "react-webcam";
@@ -8,14 +8,12 @@ import * as handTrack from 'handtrackjs';
 
 import VIDEO_SPECS from "./../constants/Video";
 
-
-
 // for tracking hand for commands + detecting face
 const VideoCapture = (props) => {
     const webcamRef = useRef(null);
 
-    useEffect(function takeScreenshot() {
-        setInterval(() => {
+    useEffect(() => {
+        const takeScreenshot = setInterval(() => {
             if (webcamRef.current != null) {
                 // take an image
                 const imgString = webcamRef.current.getScreenshot({width: VIDEO_SPECS.width, height: VIDEO_SPECS.height});

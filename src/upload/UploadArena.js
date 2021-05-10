@@ -161,7 +161,7 @@ class UploadArena extends React.Component {
               color="primary"
               size="large"
               endIcon={<NextIcon />}
-              disabled={this.state.files.length != 1}
+              disabled={this.state.files.length !== 1}
               onClick={() => this.processText()}
             >
               Proceed
@@ -200,7 +200,7 @@ class UploadArena extends React.Component {
               size="large"
               endIcon={<NextIcon />}
               onClick={() => this.beginPractice()}
-              disabled={this.state.selectedSpeaker == ""}
+              disabled={this.state.selectedSpeaker === ""}
             >
               Begin
             </Button>
@@ -243,7 +243,7 @@ class UploadArena extends React.Component {
             >
               {this.state.lines.map((entry) => {
                 let weight =
-                  entry.speaker == this.state.selectedSpeaker
+                  entry.speaker === this.state.selectedSpeaker
                     ? "bold"
                     : "normal";
                 return (

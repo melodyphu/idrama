@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-
-import Webcam from "react-webcam";
+import React from "react";
 
 import { SCREENS } from "./../constants/Navigation";
 import MemorizationAid from "./MemorizationAid";
@@ -8,7 +6,7 @@ import VideoCapture from "./VideoCapture";
 import Tips from "./Tips";
 import COLORS from "./../constants/Colors";
 
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { Typography, Paper, LinearProgress } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import BackIcon from "@material-ui/icons/ArrowBack";
