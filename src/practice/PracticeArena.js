@@ -13,6 +13,10 @@ import { Typography, Paper, LinearProgress } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import BackIcon from "@material-ui/icons/ArrowBack";
 import FinishIcon from "@material-ui/icons/Done";
+import HandIcon from "@material-ui/icons/PanTool";
+import FaceIcon from "@material-ui/icons/Face";
+
+import { FloatingButton } from "react-floating-button";
 
 import "./practice.css";
 
@@ -35,8 +39,7 @@ const styles = {
   halfPaper: {
     margin: "2vh",
     overflow: "auto",
-    height: "50vh",
-    // flexGrow: 1,
+    height: "45vh",
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -62,7 +65,8 @@ class PracticeArena extends React.Component {
       currentSpeaker: 0,
       help: false, // whether or not iDrama should
       message: "click enable to start",
-      commandActive: false,
+      handRaised: false,
+      faceVisible: false,
     };
     this.webcamRef = React.createRef();
   }
@@ -90,9 +94,15 @@ class PracticeArena extends React.Component {
     })
   }
 
-  handleToggleCommand = (value) => {
+  handleRaiseHand = (value) => {
     this.setState({
-      commandActive: value,
+      handRaised: value,
+    })
+  }
+
+  handleShowFace = (value) => {
+    this.setState({
+      faceVisible: value,
     })
   }
 
@@ -102,6 +112,10 @@ class PracticeArena extends React.Component {
 
     return (
       <div align="center">
+        <br/>
+        <Typography variant='h6' style={{fontStyle: 'italic'}}>
+          {"Raise your hand above your head, palm facing forward to issue an command"}
+        </Typography>
         <div
           style={{
             display: "flex",
@@ -114,7 +128,10 @@ class PracticeArena extends React.Component {
             style={styles.halfPaper}
           >
             <VideoCapture
-              toggleCommand={this.handleToggleCommand}
+              handleRaiseHand={this.handleRaiseHand}
+              handleShowFace={this.handleShowFace}
+              raisedHand={this.state.raisedHand}
+              faceVisible={this.state.faceVisible}
             />
           </Paper>
           <Paper
@@ -131,7 +148,7 @@ class PracticeArena extends React.Component {
             style={styles.textPaper}
           >
             <Typography
-              variant="h4"
+              variant="h6"
               style={{
                 fontStyle:
                   this.state.currentSpeaker === this.state.selectedSpeaker
