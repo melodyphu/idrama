@@ -75,6 +75,8 @@ const MemorizationAid = (props) => {
         speak({text: newMessage});
         props.setMessage(newMessage);
         setTimeout(function(){ props.setMessage("waiting for the same line!"); }, 3000);
+
+        props.addToScore("line");
       }
     },
     {
@@ -88,30 +90,34 @@ const MemorizationAid = (props) => {
           return;
         }
 
-        let {line} = script[sectionIdx].lines[lineIdx];
+        let newLineIdx;
+        let newSectionIdx;
+
+        // if at the begininning of a section
+        if (lineIdx === 0) {
+          newLineIdx = script[sectionIdx].lines.length - 1;
+          newSectionIdx = sectionIdx - 1;
+        } else {
+          newLineIdx = lineIdx - 1;
+          newSectionIdx = sectionIdx;
+        }
+
+        props.setLineIdx(newLineIdx);
+        props.setSectionIdx(newSectionIdx);
+
+        setLineIdx(newLineIdx);
+        setSectionIdx(newSectionIdx);
+
+        let {line} = script[newSectionIdx].lines[newLineIdx]
         let newMessage = line.join(" ");
 
         speak({text: newMessage});
         props.setMessage(newMessage);
 
-        // if at the begininning of a section
-        if (lineIdx === 0) {
-          let newLineIdx = script[sectionIdx].lines.length - 1;
-          let newSectionIdx = sectionIdx - 1;
-
-          props.setLineIdx(newLineIdx);
-          props.setSectionIdx(newSectionIdx);
-
-          setLineIdx(newLineIdx);
-          setSectionIdx(newSectionIdx);
-          
-        // normal
-        } else {
-          props.setLineIdx(lineIdx - 1);
-          setLineIdx(lineIdx - 1);
-        }
+        props.addToScore("previous line");
 
         setTimeout(function(){ props.setMessage("Waiting for the previous line"); }, 3000);
+
       }
     },
     {
@@ -119,7 +125,6 @@ const MemorizationAid = (props) => {
       callback: () => {
         if (needsConfirm) { return; }
         if (!handRaised) { return; }
-
         if (sectionIdx >= script.length - 1 && lineIdx >= script[sectionIdx].lines.length - 1) {
           speak({text: "There are no upcoming lines"});
           return;
@@ -127,19 +132,26 @@ const MemorizationAid = (props) => {
 
         speak({text: "Skipping to the next line"});
 
+        let newLineIdx;
+        let newSectionIdx;
+
         // if at the end of the section
         if (lineIdx >= script[sectionIdx].lines.length - 1) {
-          props.setLineIdx(0);
-          props.setSectionIdx(sectionIdx + 1);
-          
-          setLineIdx(0);
-          setSectionIdx(sectionIdx + 1);
+          newSectionIdx = sectionIdx + 1;
+          newLineIdx = 0;
 
         } else {
-          props.setLineIdx(lineIdx + 1);
-          setLineIdx(lineIdx + 1);
+          newSectionIdx = sectionIdx;
+          newLineIdx = lineIdx + 1;
         }
 
+        props.setLineIdx(newLineIdx);
+        props.setSectionIdx(newSectionIdx);
+        
+        setLineIdx(newLineIdx);
+        setSectionIdx(newSectionIdx);
+
+        props.addToScore("next line");
         props.setMessage("Waiting for the next line!");
       }
     },
@@ -172,6 +184,7 @@ const MemorizationAid = (props) => {
         setLineIdx(0);
 
         let finalMessage = "Waiting for the first line of " + section;
+        props.addToScore("restart section");
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
     },
@@ -199,6 +212,7 @@ const MemorizationAid = (props) => {
         setSectionIdx(sectionIdx - 1);
 
         let finalMessage = "Waiting for the first line of " + section;
+        props.addToScore("previous section");
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
     },
@@ -226,6 +240,7 @@ const MemorizationAid = (props) => {
         setSectionIdx(sectionIdx + 1);
 
         let finalMessage = "Waiting for the first line of " + section;
+        props.addToScore("next section");
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
     },
@@ -245,6 +260,7 @@ const MemorizationAid = (props) => {
         setSectionIdx(0);
         
         setNeedsConfirm(false);
+        props.addToScore("from beginning");
         setTimeout(function(){ props.setMessage("Waiting for your very first line!"); }, 1000);
       }
     },
@@ -272,6 +288,7 @@ const MemorizationAid = (props) => {
 
         speak({text: newMessage});
         props.setMessage(newMessage);
+        props.addToScore("line");
         setTimeout(function(){ props.setMessage("waiting for the same line!"); }, 3000);
       }
     },
@@ -285,28 +302,31 @@ const MemorizationAid = (props) => {
           return;
         }
 
-        let {line} = script[sectionIdx].lines[lineIdx];
+        let newLineIdx;
+        let newSectionIdx;
+
+        // if at the begininning of a section
+        if (lineIdx === 0) {
+          newLineIdx = script[sectionIdx].lines.length - 1;
+          newSectionIdx = sectionIdx - 1;
+        } else {
+          newLineIdx = lineIdx - 1;
+          newSectionIdx = sectionIdx;
+        }
+
+        props.setLineIdx(newLineIdx);
+        props.setSectionIdx(newSectionIdx);
+
+        setLineIdx(newLineIdx);
+        setSectionIdx(newSectionIdx);
+
+        let {line} = script[newSectionIdx].lines[newLineIdx]
         let newMessage = line.join(" ");
 
         speak({text: newMessage});
         props.setMessage(newMessage);
 
-        // if at the begininning of a section
-        if (lineIdx === 0) {
-          let newLineIdx = script[sectionIdx].lines.length - 1;
-          let newSectionIdx = sectionIdx - 1;
-
-          props.setLineIdx(newLineIdx);
-          props.setSectionIdx(newSectionIdx);
-
-          setLineIdx(newLineIdx);
-          setSectionIdx(newSectionIdx);
-          
-        // normal
-        } else {
-          props.setLineIdx(lineIdx - 1);
-          setLineIdx(lineIdx - 1);
-        }
+        props.addToScore("previous line");
 
         setTimeout(function(){ props.setMessage("Waiting for the previous line"); }, 3000);
       }
@@ -323,19 +343,26 @@ const MemorizationAid = (props) => {
 
         speak({text: "Skipping to the next line"});
 
+        let newLineIdx;
+        let newSectionIdx;
+
         // if at the end of the section
         if (lineIdx >= script[sectionIdx].lines.length - 1) {
-          props.setLineIdx(0);
-          props.setSectionIdx(sectionIdx + 1);
-          
-          setLineIdx(0);
-          setSectionIdx(sectionIdx + 1);
+          newSectionIdx = sectionIdx + 1;
+          newLineIdx = 0;
 
         } else {
-          props.setLineIdx(lineIdx + 1);
-          setLineIdx(lineIdx + 1);
+          newSectionIdx = sectionIdx;
+          newLineIdx = lineIdx + 1;
         }
 
+        props.setLineIdx(newLineIdx);
+        props.setSectionIdx(newSectionIdx);
+        
+        setLineIdx(newLineIdx);
+        setSectionIdx(newSectionIdx);
+
+        props.addToScore("next line");
         props.setMessage("Waiting for the next line!");
       }
     },
@@ -365,6 +392,7 @@ const MemorizationAid = (props) => {
         props.setLineIdx(0);
         setLineIdx(0);
 
+        props.addToScore("restart section");
         let finalMessage = "Waiting for the first line of " + section;
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
@@ -391,6 +419,7 @@ const MemorizationAid = (props) => {
         setLineIdx(0);
         setSectionIdx(sectionIdx - 1);
 
+        props.addToScore("previous section");
         let finalMessage = "Waiting for the first line of " + section;
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
@@ -417,6 +446,7 @@ const MemorizationAid = (props) => {
         setLineIdx(0);
         setSectionIdx(sectionIdx + 1);
 
+        props.addToScore("next section");
         let finalMessage = "Waiting for the first line of " + section;
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }

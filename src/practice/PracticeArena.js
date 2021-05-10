@@ -255,6 +255,7 @@ class PracticeArena extends React.Component {
               selectedSpeaker={this.state.selectedSpeaker}
               handRaised={this.state.handRaised}
               setSpeaking={this.setSpeaking}
+              addToScore={this.props.addToScore}
             />
           )}
           <Button
@@ -262,7 +263,7 @@ class PracticeArena extends React.Component {
             color="primary"
             size="large"
             endIcon={<FinishIcon />}
-            onClick={() => this.props.switchScreen(SCREENS.home)}
+            onClick={() => this.props.switchScreen(SCREENS.summary)}
           >
             Finish
           </Button>

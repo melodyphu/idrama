@@ -19,15 +19,17 @@ export const MESSAGE_TYPES = {
 };
 
 export const TIP_INFO = [
-  ["(iDrama) line", "ask iDrama for the current line"],
   ["(iDrama) previous line", "ask iDrama for the previous line"],
+  ["(iDrama) line", "ask iDrama for the current line"],
   ["(iDrama) next line", "skip to the next line"],
-  ["(iDrama) restart section", "restart the current section"],
   ["(iDrama) previous section", "start the beginning of the previous section"],
+  ["(iDrama) restart section", "restart the current section"],
   ["(iDrama) next section", "move to the start of the next section"],
   ["(iDrama) from beginning", "start practicing from the very top"],
-  // ["yes/no", "confirm or cancel restart of entire piece"],
 ];
+
+export const COMMAND_NAMES = ["previous line", "line", "next line", "previous section", "restart section", "next section", "from beginning"]
+
 
 export const CONFIRM_TYPES = {
   restart_all: 0,

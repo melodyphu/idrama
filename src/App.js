@@ -15,7 +15,16 @@ class App extends React.Component {
     super(props);
     this.state = {
       screen: SCREENS.home,
-      practiceConfig: {}
+      practiceConfig: {},
+      score: {
+        "previous line": 0,
+        "line": 0,
+        "next line": 0,
+        "previous section": 0,
+        "restart section": 0,
+        "next section": 0,
+        "from beginning": 0,  
+      }
     }
   }
 
@@ -31,6 +40,23 @@ class App extends React.Component {
     this.setState({
       screen: value
     });
+  }
+
+  // increment a command score by 1
+  addToScore = (command) => {
+    console.log(command);
+    let {score} = this.state;
+    if (!(command in score)) {
+      score.command = 1;
+    } else {
+      score[command] += 1;
+    }
+
+    this.setState({
+      score: score,
+    })
+
+    console.log(score);
   }
 
   getScreen = () => {
@@ -59,12 +85,14 @@ class App extends React.Component {
           <PracticeArena
             switchScreen={this.handleSwitchScreen}
             practiceConfig={this.state.practiceConfig}
+            addToScore={this.addToScore}
           />
         );
       case SCREENS.summary:
         return (
           <Summary
             switchScreen={this.handleSwitchScreen}
+            score={this.state.score}
           />
         );
       default:
