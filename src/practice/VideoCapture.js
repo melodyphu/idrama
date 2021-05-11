@@ -23,45 +23,48 @@ const VideoCapture = (props) => {
                 imageData.src = imgString;
 
                 // detect face and hand raised
-                handTrack.load().then(model => {
-                    model.detect(imageData).then(predictions => {
 
-                        // bounding boxes are: [x_min, y_min, width, height]
-                        let bbs = {face: null, hands: []};
-                        let found = {face: false, hand: false};
-
-                        // find face and raised hand
-                        for (let detectedObj of predictions) {
-                            let {bbox, label, score} = detectedObj;
-                            let scoreVal = parseFloat(score);
-
-                            if (label === "face" && scoreVal >= VIDEO_SPECS.face_thresh) {
-                                found.face = true;
-                                bbs.face = bbox;
-                            } else if (label === "open" && scoreVal >= VIDEO_SPECS.hand_thresh) {
-                                // check if higher than the face
-                                bbs.hands.push(bbox);
-                            }
-                        }
-
-                        // check if hand is above the face
-                        if (found.face && bbs.hands.length > 0) {
-                            let y_min_face = bbs.face[1];
-                            for (let handBB of bbs.hands) {
-                                let y_min_hand = handBB[1];
-
-                                // if the top of the hand is higher than the face
-                                if (y_min_hand < y_min_face) {
-                                    found.hand = true
+                imageData.onload = function() {
+                    handTrack.load().then(model => {
+                        model.detect(imageData).then(predictions => {
+    
+                            // bounding boxes are: [x_min, y_min, width, height]
+                            let bbs = {face: null, hands: []};
+                            let found = {face: false, hand: false};
+    
+                            // find face and raised hand
+                            for (let detectedObj of predictions) {
+                                let {bbox, label, score} = detectedObj;
+                                let scoreVal = parseFloat(score);
+    
+                                if (label === "face" && scoreVal >= VIDEO_SPECS.face_thresh) {
+                                    found.face = true;
+                                    bbs.face = bbox;
+                                } else if (label === "open" && scoreVal >= VIDEO_SPECS.hand_thresh) {
+                                    // check if higher than the face
+                                    bbs.hands.push(bbox);
                                 }
                             }
-                        }
-
-                        // update
-                        props.handleShowFace(found.face);
-                        props.handleRaiseHand(found.hand);
+    
+                            // check if hand is above the face
+                            if (found.face && bbs.hands.length > 0) {
+                                let y_min_face = bbs.face[1];
+                                for (let handBB of bbs.hands) {
+                                    let y_min_hand = handBB[1];
+    
+                                    // if the top of the hand is higher than the face
+                                    if (y_min_hand < y_min_face) {
+                                        found.hand = true
+                                    }
+                                }
+                            }
+    
+                            // update
+                            props.handleShowFace(found.face);
+                            props.handleRaiseHand(found.hand);
+                        });
                     });
-                });
+                }
             }
         }, VIDEO_SPECS.freq * 1000);
 
