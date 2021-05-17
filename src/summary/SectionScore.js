@@ -35,10 +35,10 @@ const ExpandContent = ({ lines, ...otherProps}) => {
         paging: false,
       }}
       columns={[
-        { title: 'Script', field: 'words', width: '40%' },
-        { title: 'Previous Line', field: 'previous line', width: '20%' },
-        { title: 'Line', field: 'line', width: '20%' },
-        { title: 'Next Line', field: 'next line', width: '20%' },
+        { title: 'Script', field: 'words', width: '40%', sorting: false },
+        { title: 'Previous Line', field: 'previous line', width: '20%', sorting: false },
+        { title: 'Line', field: 'line', width: '20%', sorting: false },
+        { title: 'Next Line', field: 'next line', width: '20%', sorting: false },
       ]}
       data={lineData}
     />
@@ -78,10 +78,10 @@ export default function SectionScore(props) {
           toolbar: false,
         }}
         columns={[
-          { title: 'Section Name', field: 'name' },
-          { title: 'Previous Section', field: 'previous section'},
-          { title: 'Restart Section', field: 'restart section'},
-          { title: 'Next Section', field: 'next section'},
+          { title: 'Section Name', field: 'name', sorting: false  },
+          { title: 'Previous Section', field: 'previous section', sorting: false },
+          { title: 'Restart Section', field: 'restart section', sorting: false },
+          { title: 'Next Section', field: 'next section', sorting: false },
         ]}
         data={sectionData}
         detailPanel={rowData => {

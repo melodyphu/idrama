@@ -31,8 +31,8 @@ export default function TotalScore(props) {
           toolbar: false,
         }}
         columns={[
-          { title: 'Command Name', field: 'command' },
-          { title: '# Times Used', field: 'times'},
+          { title: 'Command Name', field: 'command', sorting: false },
+          { title: '# Times Used', field: 'times', sorting: false },
         ]}
         data={totalData}
         style={{height: "70vh", width: "30vw", overflow: 'auto'}}
