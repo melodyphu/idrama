@@ -4,6 +4,7 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { useSpeechSynthesis } from 'react-speech-kit';
 import "./practice.css";
+import "./memorize.css";
 import Button from "@material-ui/core/Button";
 import ListenIcon from "@material-ui/icons/Hearing";
 import CancelIcon from "@material-ui/icons/Clear";
@@ -501,6 +502,7 @@ const MemorizationAid = (props) => {
 
   return (
     (!listening) ? (
+      <div className="enable">
       <Button
           variant="contained"
           color="primary"
@@ -514,7 +516,9 @@ const MemorizationAid = (props) => {
       >
         Enable
       </Button>
+      </div>
     ) : (
+      <div className="disable">
       <Button
         variant="contained"
         color="primary"
@@ -528,6 +532,7 @@ const MemorizationAid = (props) => {
       >
         Disable
       </Button>
+    </div>
     )
   );
 };
