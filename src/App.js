@@ -30,6 +30,32 @@ class App extends React.Component {
 
   // receiving lines, speakers, and selectedSpeaker from UploadArena
   setupPractice = (config) => {
+    // initialize all script-based scoring
+    let {script} = config;
+
+    for (let sectionObj of script) {
+      sectionObj["score"] = {
+        "previous line": 0,
+        "line": 0,
+        "next line": 0,
+        "previous section": 0,
+        "restart section": 0,
+        "next section": 0,
+        "from beginning": 0,
+      }
+
+      for (let line of sectionObj.lines) {
+        line["score"] = {
+          "previous line": 0,
+          "line": 0,
+          "next line": 0,
+          "previous section": 0,
+          "restart section": 0,
+          "next section": 0,
+          "from beginning": 0,
+        } 
+      }
+    }
     this.setState({
       practiceConfig: config,
     })
@@ -61,43 +87,15 @@ class App extends React.Component {
     let {script} = practiceConfig;
     let sectionObj = script[sectionIdx];
 
-    if ("score" in sectionObj) {
-      sectionObj.score[command] += 1;
-    } else {
-      sectionObj["score"] = {
-        "previous line": 0,
-        "line": 0,
-        "next line": 0,
-        "previous section": 0,
-        "restart section": 0,
-        "next section": 0,
-        "from beginning": 0,
-      }
-
-      sectionObj.score[command] = 1;
-    }
+    sectionObj.score[command] += 1;
 
     // add to specific line
     let lineObj = sectionObj.lines[lineIdx];
-    if ("score" in lineObj) {
-      lineObj.score[command] += 1;
-    } else {
-      lineObj["score"] = {
-        "previous line": 0,
-        "line": 0,
-        "next line": 0,
-        "previous section": 0,
-        "restart section": 0,
-        "next section": 0,
-        "from beginning": 0,
-      }
-      lineObj.score[command] = 1;
-    }
+    lineObj.score[command] += 1;
 
     this.setState({
       practiceConfig: practiceConfig,
     })
-
 
     console.log(this.state.totalScore);
     console.log(this.state.practiceConfig)
@@ -138,7 +136,7 @@ class App extends React.Component {
           <Summary
             switchScreen={this.handleSwitchScreen}
             score={this.state.totalScore}
-            scriptScore={this.state.practiceConfig.script}
+            script={this.state.practiceConfig.script}
           />
         );
       default:

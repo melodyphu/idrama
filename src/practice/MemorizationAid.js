@@ -107,6 +107,8 @@ const MemorizationAid = (props) => {
         let newLineIdx;
         let newSectionIdx;
 
+        props.addToScore("previous line", sectionIdx, lineIdx);
+
         // if at the begininning of a section
         if (lineIdx === 0) {
           newLineIdx = script[sectionIdx].lines.length - 1;
@@ -128,7 +130,7 @@ const MemorizationAid = (props) => {
         speak({text: newMessage});
         props.setMessage(newMessage);
 
-        props.addToScore("previous line", sectionIdx, lineIdx);
+        
 
         setTimeout(function(){ props.setMessage("Waiting for the previous line"); }, 3000);
 
@@ -145,6 +147,7 @@ const MemorizationAid = (props) => {
         }
 
         speak({text: "Skipping to the next line"});
+        props.addToScore("next line", sectionIdx, lineIdx);
 
         let newLineIdx;
         let newSectionIdx;
@@ -165,7 +168,7 @@ const MemorizationAid = (props) => {
         setLineIdx(newLineIdx);
         setSectionIdx(newSectionIdx);
 
-        props.addToScore("next line", sectionIdx, lineIdx);
+        
         props.setMessage("Waiting for the next line!");
       }
     },
@@ -191,6 +194,8 @@ const MemorizationAid = (props) => {
         let {line} = lines[0];
         let newMessage = "Restarting " + section + ". Your first word is... " + line[0];
 
+        props.addToScore("restart section", sectionIdx, lineIdx);
+
         speak({text: newMessage});
         props.setMessage(newMessage);
 
@@ -198,7 +203,7 @@ const MemorizationAid = (props) => {
         setLineIdx(0);
 
         let finalMessage = "Waiting for the first line of " + section;
-        props.addToScore("restart section", sectionIdx, lineIdx);
+        
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
     },
@@ -217,6 +222,8 @@ const MemorizationAid = (props) => {
         let {line} = lines[0];
         let newMessage = "Starting back at " + section + ". Your first word is... " + line[0];
 
+        props.addToScore("previous section", sectionIdx, lineIdx);
+
         speak({text: newMessage});
         props.setMessage(newMessage);
 
@@ -226,7 +233,7 @@ const MemorizationAid = (props) => {
         setSectionIdx(sectionIdx - 1);
 
         let finalMessage = "Waiting for the first line of " + section;
-        props.addToScore("previous section", sectionIdx, lineIdx);
+        
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
     },
@@ -248,13 +255,15 @@ const MemorizationAid = (props) => {
         speak({text: newMessage});
         props.setMessage(newMessage);
 
+        props.addToScore("next section", sectionIdx, lineIdx);
+
         props.setLineIdx(0);
         props.setSectionIdx(sectionIdx + 1);
         setLineIdx(0);
         setSectionIdx(sectionIdx + 1);
 
         let finalMessage = "Waiting for the first line of " + section;
-        props.addToScore("next section", sectionIdx, lineIdx);
+        
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
     },
@@ -266,6 +275,8 @@ const MemorizationAid = (props) => {
 
         speak({text: "Okay, starting at the beginning"});
         props.setMessage("Restarting");
+
+        props.addToScore("from beginning", sectionIdx, lineIdx);
         
         props.setLineIdx(0);
         props.setSectionIdx(0);
@@ -274,7 +285,7 @@ const MemorizationAid = (props) => {
         setSectionIdx(0);
         
         setNeedsConfirm(false);
-        props.addToScore("from beginning", sectionIdx, lineIdx);
+        
         setTimeout(function(){ props.setMessage("Waiting for your very first line!"); }, 1000);
       }
     },
@@ -318,6 +329,8 @@ const MemorizationAid = (props) => {
         props.setLineIdx(newLineIdx);
         props.setSectionIdx(newSectionIdx);
 
+        props.addToScore("previous line", sectionIdx, lineIdx);
+
         setLineIdx(newLineIdx);
         setSectionIdx(newSectionIdx);
 
@@ -327,7 +340,7 @@ const MemorizationAid = (props) => {
         speak({text: newMessage});
         props.setMessage(newMessage);
 
-        props.addToScore("previous line", sectionIdx, lineIdx);
+        
 
         setTimeout(function(){ props.setMessage("Waiting for the previous line"); }, 3000);
       }
@@ -359,11 +372,13 @@ const MemorizationAid = (props) => {
 
         props.setLineIdx(newLineIdx);
         props.setSectionIdx(newSectionIdx);
+
+        props.addToScore("next line", sectionIdx, lineIdx);
         
         setLineIdx(newLineIdx);
         setSectionIdx(newSectionIdx);
 
-        props.addToScore("next line", sectionIdx, lineIdx);
+        
         props.setMessage("Waiting for the next line!");
       }
     },
@@ -390,10 +405,12 @@ const MemorizationAid = (props) => {
         speak({text: newMessage});
         props.setMessage(newMessage);
 
+        props.addToScore("restart section", sectionIdx, lineIdx);
+
         props.setLineIdx(0);
         setLineIdx(0);
 
-        props.addToScore("restart section", sectionIdx, lineIdx);
+        
         let finalMessage = "Waiting for the first line of " + section;
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
@@ -415,12 +432,14 @@ const MemorizationAid = (props) => {
         speak({text: newMessage});
         props.setMessage(newMessage);
 
+        props.addToScore("previous section", sectionIdx, lineIdx);
+
         props.setLineIdx(0);
         props.setSectionIdx(sectionIdx - 1);
         setLineIdx(0);
         setSectionIdx(sectionIdx - 1);
 
-        props.addToScore("previous section", sectionIdx, lineIdx);
+        
         let finalMessage = "Waiting for the first line of " + section;
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
@@ -442,12 +461,14 @@ const MemorizationAid = (props) => {
         speak({text: newMessage});
         props.setMessage(newMessage);
 
+        props.addToScore("next section", sectionIdx, lineIdx);
+
         props.setLineIdx(0);
         props.setSectionIdx(sectionIdx + 1);
         setLineIdx(0);
         setSectionIdx(sectionIdx + 1);
 
-        props.addToScore("next section", sectionIdx, lineIdx);
+        
         let finalMessage = "Waiting for the first line of " + section;
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }

@@ -12,6 +12,7 @@
     "face-api.js": "^0.22.2",
     "handtrackjs": "^0.1.5",
     "i": "^0.3.6",
+    "material-table": "^1.69.3",
     "material-ui-dropzone": "^3.5.0",
     "npm": "^7.11.1",
     "raw.macro": "^0.4.2",
