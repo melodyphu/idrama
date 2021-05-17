@@ -33,9 +33,10 @@ const MemorizationAid = (props) => {
         command: lineEntry.line.join(" "),
         isFuzzyMatch: true,
         fuzzyMatchingThreshold: 0.8,
-        callback: () => {
+        callback: (command, spokenPhrase) => {
           if (needsConfirm) { return; }
           if (sectionIdx === sidx && lineIdx === lidx) {
+
             if (lidx + 1 >= lines.length) {
               // move to next section
               props.setLineIdx(0);
@@ -48,10 +49,19 @@ const MemorizationAid = (props) => {
               // move to next line of section
               props.setLineIdx(lineIdx + 1);
               setLineIdx(lineIdx + 1);
-              
             }
 
-            props.setMessage("good!");
+            let message = "";
+
+            for (let word of lineEntry.line) {
+              if (spokenPhrase.split(" ").map((w) => {return w.toLowerCase()}).includes(word.toLowerCase())) {
+                message += word + " ";
+              } else {
+                message += "*" + word + " ";
+              }
+            }
+
+            props.setMessage(message);
             setTimeout(function(){ props.setMessage("waiting for your next line!"); }, 1000);
           }
         }

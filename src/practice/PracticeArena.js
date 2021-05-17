@@ -221,7 +221,18 @@ class PracticeArena extends React.Component {
                     : "italic",
               }}
             >
-              {this.state.message}
+              {(this.state.message.indexOf("*") === -1) 
+                ? this.state.message 
+                : (
+                  <div style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                    {this.state.message.split(" ").map((word) => {
+                      return (word.indexOf("*") !== -1)
+                        ? (<div style={{color: "red", paddingLeft: "1px"}}> {word.slice(1)} </div>)
+                        : (<div style={{margin: "1vw"}}> {word} </div>);
+                    })}
+                  </div>
+                )
+              }
             </Typography>
           </Paper>
         </div>
