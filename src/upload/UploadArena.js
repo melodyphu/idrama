@@ -291,7 +291,9 @@ class UploadArena extends React.Component {
               color="primary"
               size="large"
               endIcon={<NextIcon />}
-              onClick={() => this.beginPractice()}
+              onClick={() => {
+                this.beginPractice()
+              }}
               disabled={this.state.selectedSpeaker === ""}
             >
               Begin

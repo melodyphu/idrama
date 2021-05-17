@@ -27,7 +27,6 @@ const MemorizationAid = (props) => {
   // voice "commands" aka detecting correctly spoken lines
   const sectionMatches = script.map((sectionEntry, sidx) => {
     let lines = sectionEntry.lines;
-
     return lines.map((lineEntry, lidx) => {
       return ({
         command: lineEntry.line.join(" "),
@@ -63,8 +62,9 @@ const MemorizationAid = (props) => {
   // also TODO: filter out the section specific ones if there are no sections given by the use
 
   const simpleCommands = [
+    // asking iDrama for the current line
     {
-      command: "line", // asking iDrama for the current line
+      command: "line", 
       callback: () => {
         if (needsConfirm) { return; }
         if (!handRaised) { return; }
@@ -76,11 +76,25 @@ const MemorizationAid = (props) => {
         props.setMessage(newMessage);
         setTimeout(function(){ props.setMessage("waiting for the same line!"); }, 3000);
 
-        props.addToScore("line");
+        props.addToScore("line", sectionIdx, lineIdx);
       }
     },
     {
-      command: "previous line", // asking iDrama for the previous line, will need to repeat that one
+      command: "i drama line",
+      callback: () => {
+        if (needsConfirm) { return; }
+
+        let {line} = script[sectionIdx].lines[lineIdx];
+        let newMessage = line.join(" ");
+
+        speak({text: newMessage});
+        props.setMessage(newMessage);
+        props.addToScore("line", sectionIdx, lineIdx);
+        setTimeout(function(){ props.setMessage("waiting for the same line!"); }, 3000);
+      }
+    },
+    {
+      command: "previous line", 
       callback: () => {
         if (needsConfirm) { return; }
         if (!handRaised) { return; }
@@ -114,7 +128,7 @@ const MemorizationAid = (props) => {
         speak({text: newMessage});
         props.setMessage(newMessage);
 
-        props.addToScore("previous line");
+        props.addToScore("previous line", sectionIdx, lineIdx);
 
         setTimeout(function(){ props.setMessage("Waiting for the previous line"); }, 3000);
 
@@ -151,7 +165,7 @@ const MemorizationAid = (props) => {
         setLineIdx(newLineIdx);
         setSectionIdx(newSectionIdx);
 
-        props.addToScore("next line");
+        props.addToScore("next line", sectionIdx, lineIdx);
         props.setMessage("Waiting for the next line!");
       }
     },
@@ -184,7 +198,7 @@ const MemorizationAid = (props) => {
         setLineIdx(0);
 
         let finalMessage = "Waiting for the first line of " + section;
-        props.addToScore("restart section");
+        props.addToScore("restart section", sectionIdx, lineIdx);
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
     },
@@ -212,7 +226,7 @@ const MemorizationAid = (props) => {
         setSectionIdx(sectionIdx - 1);
 
         let finalMessage = "Waiting for the first line of " + section;
-        props.addToScore("previous section");
+        props.addToScore("previous section", sectionIdx, lineIdx);
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
     },
@@ -240,7 +254,7 @@ const MemorizationAid = (props) => {
         setSectionIdx(sectionIdx + 1);
 
         let finalMessage = "Waiting for the first line of " + section;
-        props.addToScore("next section");
+        props.addToScore("next section", sectionIdx, lineIdx);
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
     },
@@ -260,7 +274,7 @@ const MemorizationAid = (props) => {
         setSectionIdx(0);
         
         setNeedsConfirm(false);
-        props.addToScore("from beginning");
+        props.addToScore("from beginning", sectionIdx, lineIdx);
         setTimeout(function(){ props.setMessage("Waiting for your very first line!"); }, 1000);
       }
     },
@@ -278,20 +292,7 @@ const MemorizationAid = (props) => {
   ];
 
   const iDramaCommands = [
-    {
-      command: "i drama line", // asking iDrama for the current line
-      callback: () => {
-        if (needsConfirm) { return; }
 
-        let {line} = script[sectionIdx].lines[lineIdx];
-        let newMessage = line.join(" ");
-
-        speak({text: newMessage});
-        props.setMessage(newMessage);
-        props.addToScore("line");
-        setTimeout(function(){ props.setMessage("waiting for the same line!"); }, 3000);
-      }
-    },
     {
       command: "i drama previous line", // asking iDrama for the previous line, will need to repeat that one
       callback: () => {
@@ -326,7 +327,7 @@ const MemorizationAid = (props) => {
         speak({text: newMessage});
         props.setMessage(newMessage);
 
-        props.addToScore("previous line");
+        props.addToScore("previous line", sectionIdx, lineIdx);
 
         setTimeout(function(){ props.setMessage("Waiting for the previous line"); }, 3000);
       }
@@ -362,7 +363,7 @@ const MemorizationAid = (props) => {
         setLineIdx(newLineIdx);
         setSectionIdx(newSectionIdx);
 
-        props.addToScore("next line");
+        props.addToScore("next line", sectionIdx, lineIdx);
         props.setMessage("Waiting for the next line!");
       }
     },
@@ -392,7 +393,7 @@ const MemorizationAid = (props) => {
         props.setLineIdx(0);
         setLineIdx(0);
 
-        props.addToScore("restart section");
+        props.addToScore("restart section", sectionIdx, lineIdx);
         let finalMessage = "Waiting for the first line of " + section;
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
@@ -419,7 +420,7 @@ const MemorizationAid = (props) => {
         setLineIdx(0);
         setSectionIdx(sectionIdx - 1);
 
-        props.addToScore("previous section");
+        props.addToScore("previous section", sectionIdx, lineIdx);
         let finalMessage = "Waiting for the first line of " + section;
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
@@ -446,7 +447,7 @@ const MemorizationAid = (props) => {
         setLineIdx(0);
         setSectionIdx(sectionIdx + 1);
 
-        props.addToScore("next section");
+        props.addToScore("next section", sectionIdx, lineIdx);
         let finalMessage = "Waiting for the first line of " + section;
         setTimeout(function(){ props.setMessage(finalMessage); }, 3000);
       }
