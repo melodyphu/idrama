@@ -32,7 +32,7 @@ const MemorizationAid = (props) => {
       return ({
         command: lineEntry.line.join(" "),
         isFuzzyMatch: true,
-        fuzzyMatchingThreshold: 0.8,
+        fuzzyMatchingThreshold: 0.7,
         callback: (command, spokenPhrase) => {
           if (needsConfirm) { return; }
           if (sectionIdx === sidx && lineIdx === lidx) {
