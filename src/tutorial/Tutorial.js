@@ -26,7 +26,7 @@ class Tutorial extends React.Component {
     return (
       <div className="Holder">
         <div className="Top">
-          <h1><span>~This tutorial page is under construction~</span></h1>
+          <h1><span>Tutorial has been integrated into the general user flow~</span></h1>
         </div>
 
         <div className="Bottom">
