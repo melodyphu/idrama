@@ -29,7 +29,7 @@ class HomePage extends React.Component {
             Start
           </Button>
 
-          <Button
+          {/* <Button
             variant="contained"
             color="primary"
             size="large"
@@ -37,7 +37,7 @@ class HomePage extends React.Component {
             onClick={() => this.props.switchScreen(SCREENS.tutorial)}
           >
             Help
-          </Button>
+          </Button> */}
         </div>
       </div>
     );
