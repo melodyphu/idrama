@@ -1,83 +1,44 @@
 # iDrama
-Be dramatic without the drama.
+An interactive digital rehearsal and memorization assistant.
 
-# Development Tips
-Run `git pull` to get the latest changes to the remote repository.
-Run `npm install` to update your local node modules folder to keep up with the latest package management.
+By: Melat Anteneh and Melody Phu
 
-# Deployment Tips
-Make an account at [Heroku](https://www.heroku.com/).
-Under the iDrama account, deploy from the main branch.
-View iDrama [here](https://idrama.herokuapp.com/).
+# Testing Instructions
+To get the code onto your local machine, open up a terminal and run `git clone https://github.com/melodyphu/idrama.git` to clone the repository.
 
-# Getting Started with Create React App
+Make sure that you have [npm](https://www.npmjs.com/get-npm) installed. You will need this to download all the relevant packages.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Run `npm install` to get the latest versions of all packages required for iDrama.
 
-## Available Scripts
+Run `npm start` to begin a local version of iDrama. We recommend that you use Google Chrome for testing.
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# File Organization
+The source code can be found under `src`.
 
-### `npm test`
+We have split up the files into folders named appropriately for each feature that they compile to.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-Run `npm start` to test the app locally at [localhost:3000](http://localhost:3000).
+1. `constants`: constant values that are used throughout many parts of the system. Used for modularity.
+   - `Colors.js`
+   - `Navigation.js`
+   - `Speech.js`
+   - `Text.js`
+   - `Video.js`
+2. `home`
+   - `HomePage.js`: the home page that a user first sees.
+3. `imgs` (images used throughout the system)
+4. `practice`
+   - `MemorizationAid.js`: where react-speech-recognition and react-speech-kit are used to process voice input and give voice feedback.
+   - `PracticeArena.js`: the high level practice arena code. renders all other components in this folder.
+   - `Tips.js`: displays all possible commands at the top right of the practice screen.
+   - `VideoCapture.js`: captures snapshots from a users webcam and runs them against HandTrack.js to detect the face and raised hand.
+5. `summary`
+   - `SectionScore.js`: displays the command usage distribution across each section, and then broken down by line.
+   - `Summary.js`: the high level screen that shows both feedback tables.
+   - `TotalScore.js`: the table that displays the command usage across the entire piece.
+6. `toolbar`
+   - `AppToolbar.js`: a simple iDrama toolbar that persists throughout the program.
+7. `upload`
+   - `UploadArena.js`: the main screen for uploading a file, parsing a file, and displaying a file preview.
+8. `App.js`: the main file that houses all other components of iDrama
