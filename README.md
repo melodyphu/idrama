@@ -1,5 +1,7 @@
 # iDrama
-Be dramatic without the drama.
+An interactive digital rehearsal and memorization assistant.
+
+By: Melat Anteneh and Melody Phu
 
 # Testing Instructions
 To get the code onto your local machine, open up a terminal and run `git clone https://github.com/melodyphu/idrama.git` to clone the repository.
