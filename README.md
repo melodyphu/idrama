@@ -1,7 +1,7 @@
 # iDrama
 An interactive digital rehearsal and memorization assistant.
 
-By: Melat Anteneh and Melody Phu
+By: Melat Anteneh and Melody Phu (6.835, Intelligent Multimodal User Interfaces)
 
 # Testing Instructions
 To get the code onto your local machine, open up a terminal and run `git clone https://github.com/melodyphu/idrama.git` to clone the repository.
